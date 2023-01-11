@@ -1,0 +1,346 @@
+@media only screen and (max-width: 3000px) {
+  :root {
+    font-size: 35px;
+  }
+}
+
+@media only screen and (max-width: 2300px) {
+  :root {
+    font-size: 30px;
+  }
+}
+
+@media only screen and (max-width: 1750px) {
+  :root {
+    font-size: 25px;
+  }
+}
+
+@media only screen and (max-width: 1500px) {
+  :root {
+    font-size: 22px;
+  }
+}
+
+@media only screen and (max-width: 1400px) {
+  :root {
+    font-size: 20px;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  :root {
+    font-size: 16px;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  :root {
+    font-size: 14px;
+  }
+}
+
+@media only screen and (max-width: 850px) {
+  :root {
+    font-size: 20px;
+  }
+
+  body {
+    padding: 1.5rem;
+  }
+
+  /* HEADER AND NAVS */
+
+  .user-icon {
+    display: none;
+  }
+
+  .menu-icon {
+    display: inline;
+  }
+
+  /* LOGIN AND CREATE ACCOUNT FORM */
+  .login {
+    width: 60%;
+  }
+
+  /* MAIN APP */
+  .app {
+    display: block;
+  }
+
+  .dashboard {
+    width: 80%;
+  }
+
+  /* UTILITIES SECTION */
+  .figures,
+  .transfer-form,
+  .loan-form {
+    width: 85%;
+  }
+
+  /* PERSONAL INFORMATION SECTION  SETTINGS*/
+  .acc-user {
+    margin: 1.5rem auto 1rem auto;
+  }
+
+  .main-info {
+    width: 95%;
+  }
+
+  /* UI DISPLAY SETTINGS SECTION */
+  .UIs,
+  .modes {
+    width: 90%;
+  }
+
+  .UIs div,
+  .modes div {
+    width: 6rem;
+    height: 5rem;
+  }
+
+  /* TERMS & CONDITIONS */
+  .body-condition {
+    width: 95%;
+  }
+
+  /* CHANGE PASSWORD */
+  .change {
+    width: 95%;
+  }
+
+  /* ********* */
+  /* ASIDE */
+  .aside {
+    display: none;
+  }
+
+  .aside-mobile {
+    display: block;
+  }
+
+  /* MODAL BOXES */
+  .modal {
+    width: 65%;
+  }
+}
+
+/* HIDDEN OPACITY AND TRANSITIONS */
+.hidden {
+  display: none;
+}
+
+.opacity {
+  opacity: 0;
+}
+
+.side-transitions {
+  transform: translateX(40%);
+}
+
+.modal-transition {
+  transform: scale(0.7) translate(-75%, -50%);
+  top: 50%;
+  left: 50%;
+}
+
+@media only screen and (max-width: 730px) {
+  :root {
+    font-size: 18px;
+  }
+
+  .login {
+    width: 70%;
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  body {
+    padding: 1rem;
+    padding-top: 2.3rem;
+  }
+
+  .login {
+    width: 75%;
+  }
+
+  .login-container {
+    top: 7rem;
+  }
+
+  .dashboard {
+    width: 90%;
+    /* margin: 1.2rem auto 3.8rem auto; */
+    padding: 1.5rem;
+  }
+
+  .balance {
+    font-size: 2rem;
+  }
+
+  .figures {
+    width: 95%;
+  }
+
+  .trans-container {
+    height: 22rem;
+  }
+
+  .transfer-form,
+  .loan-form {
+    width: 95%;
+  }
+
+  .payments-options {
+    width: 100%;
+  }
+
+  .setting-page {
+    padding: 2rem 1.3rem;
+  }
+
+  .setting-heading {
+    font-size: 1.67rem;
+    margin-bottom: 1.3rem;
+  }
+
+  .setting-items {
+    width: 95%;
+    /* padding: 0.8rem; */
+  }
+
+  .title-heading {
+    font-size: 1.3rem;
+  }
+
+  .title-desc {
+    font-size: 1rem;
+  }
+
+  .settings-group {
+    width: 95%;
+  }
+
+  .main-info {
+    width: 95%;
+  }
+
+  .UIs,
+  .modes {
+    width: 95%;
+  }
+
+  .UIs div,
+  .modes div {
+    width: 5rem;
+    height: 4rem;
+  }
+
+  .modal {
+    width: 80%;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  :root {
+    font-size: 16px;
+  }
+
+  .dark,
+  .light {
+    display: none;
+  }
+
+  header h1 {
+    font-size: 1.6rem;
+  }
+
+  .bank-icon {
+    width: 2.65rem;
+    height: 2.65rem;
+  }
+
+  .login {
+    width: 80%;
+  }
+
+  label {
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .login-input,
+  .newAcc-input,
+  .transfer-input,
+  .loan-input,
+  .change-pword-input {
+    font-size: 0.9rem;
+    padding: 0.7rem;
+  }
+
+  .error-message,
+  .pword-error {
+    font-size: 0.9rem;
+    margin-top: 0.7rem;
+  }
+
+  .login-button,
+  .register-button,
+  .transfer-button,
+  .loan-button {
+    font-size: 0.95rem;
+  }
+
+  .create-text,
+  .sign-in {
+    font-size: 1rem;
+  }
+
+  .welcome,
+  .last-login {
+    font-size: 1.15rem;
+  }
+
+  .cur-date,
+  .last-date {
+    font-size: 1rem;
+  }
+
+  .acc-name {
+    font-size: 1.05rem;
+  }
+
+  .balance {
+    font-size: 2.5rem;
+  }
+
+  .label {
+    font-size: 0.8rem;
+  }
+
+  span.labelValue {
+    font-size: 1.1rem;
+  }
+
+  .type {
+    font-size: 1.1rem;
+  }
+
+  .desc {
+    font-size: 0.9rem;
+  }
+
+  .trans-date {
+    font-size: 0.8rem;
+  }
+
+  .amount {
+    font-size: 1.2rem;
+  }
+
+  .loan-input {
+    font-size: 1rem;
+  }
+}
