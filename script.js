@@ -28,6 +28,8 @@ const settingItems = document.querySelector('.setting-items');
 const settingGroups = document.querySelectorAll('.settings-group');
 const accDetails = document.querySelector('.account-details');
 
+const uiDivs = document.querySelectorAll('.colors');
+
 // SIDE NAVS
 const asideNav = document.querySelector('.aside');
 const allSideNavs = document.querySelectorAll('.side-content');
@@ -116,6 +118,12 @@ const hideModal = function () {
   addClass(modalBack, 'hidden');
 };
 
+const showSoonModal = function () {
+  removeClass(modalBack, 'hidden');
+  removeClass(soonModal, 'hidden');
+  removeClass(soonModal, 'modal-transition');
+};
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -155,6 +163,15 @@ crossEye.addEventListener('click', function () {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
+//SETTINGSSS
+settingItems.addEventListener('click', function (e) {
+  if (e.target.closest('.available')) {
+    console.log('Yowaimo');
+  }
+});
+
+//////////////////////////////////////////////////////////////////////
+
 // NAVIGATIONS
 
 // homeNavD.addEventListener('click', function (e) {
@@ -187,8 +204,12 @@ document.addEventListener('keydown', function (e) {
 
 icons.forEach(el => {
   el.addEventListener('click', function () {
-    removeClass(modalBack, 'hidden');
-    removeClass(soonModal, 'hidden');
-    removeClass(soonModal, 'modal-transition');
+    showSoonModal();
+  });
+});
+
+uiDivs.forEach(el => {
+  el.addEventListener('click', function () {
+    showSoonModal();
   });
 });
