@@ -14,6 +14,11 @@ const transferCont = document.querySelector('.transfers');
 const loanCont = document.querySelector('.loans');
 const paymentCont = document.querySelector('.payments-section');
 
+// DASHBOARD
+const eye = document.querySelector('.eye-1');
+const crossEye = document.querySelector('.eye-slash');
+const accNo = document.querySelector('.aNo');
+
 // ALL SETTINGS
 const settingPage = document.querySelector('.setting-page');
 const settingItems = document.querySelector('.setting-items');
@@ -41,6 +46,10 @@ const addClass = function (element, className) {
 
 const removeClass = function (element, className) {
   element.classList.remove(className);
+};
+
+const toggleClass = function (element, className) {
+  element.classList.toggle(className);
 };
 
 const hidePages = function () {
@@ -110,6 +119,23 @@ user.addEventListener('click', function () {
 });
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// DASHBOARDSSS
+eye.addEventListener('click', function () {
+  toggleClass(eye, 'hidden');
+  toggleClass(crossEye, 'hidden');
+
+  accNo.textContent = '**********';
+});
+
+crossEye.addEventListener('click', function () {
+  toggleClass(crossEye, 'hidden');
+  toggleClass(eye, 'hidden');
+
+  accNo.textContent = '0123456789';
+});
+
+///////////////////////////////////////////////////////////////////////////////////////////////
 
 // NAVIGATIONS
 

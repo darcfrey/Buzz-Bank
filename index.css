@@ -914,6 +914,7 @@ form.transfer-form {
 /* HIDDEN OPACITY AND TRANSITIONS */
 .hidden {
   visibility: hidden;
+  display: none;
   opacity: 0%;
 }
 
