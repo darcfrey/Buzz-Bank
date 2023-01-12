@@ -19,6 +19,9 @@ const eye = document.querySelector('.eye-1');
 const crossEye = document.querySelector('.eye-slash');
 const accNo = document.querySelector('.aNo');
 
+// PAYMENTS ICONS
+const icons = document.querySelectorAll('.icon-container');
+
 // ALL SETTINGS
 const settingPage = document.querySelector('.setting-page');
 const settingItems = document.querySelector('.setting-items');
@@ -35,6 +38,12 @@ const transferNavD = document.querySelector('.transfer-desk-nav');
 const loanNavD = document.querySelector('.loan-desk-nav');
 const payNavD = document.querySelector('.payment-desk-nav');
 const settingsNavD = document.querySelector('.settings');
+
+// MODALS
+const modalBack = document.querySelector('.modal-background');
+const allModal = document.querySelectorAll('.modal');
+const soonModal = document.querySelector('.coming-soon');
+const cross = document.querySelectorAll('.cross-cancel');
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -98,6 +107,15 @@ const navigations = function (e, classCheck) {
   }
 };
 
+const hideModal = function () {
+  allModal.forEach(el => {
+    addClass(el, 'hidden');
+    addClass(el, 'modal-transition');
+  });
+
+  addClass(modalBack, 'hidden');
+};
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -153,4 +171,24 @@ crossEye.addEventListener('click', function () {
 
 asideNav.addEventListener('click', function (e) {
   navigations(e, 'side-content');
+});
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+// MODAL
+modalBack.addEventListener('click', hideModal);
+cross.forEach(el => {
+  el.addEventListener('click', hideModal);
+});
+
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape') hideModal();
+});
+
+icons.forEach(el => {
+  el.addEventListener('click', function () {
+    removeClass(modalBack, 'hidden');
+    removeClass(soonModal, 'hidden');
+    removeClass(soonModal, 'modal-transition');
+  });
 });
