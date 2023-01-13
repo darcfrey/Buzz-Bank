@@ -1,6 +1,7 @@
 'use strict';
 
 // GENERAL ELEMENTS SELECTION
+const hamburger = document.querySelector('.menu-icon');
 const marquee = document.querySelector('.sapa');
 const user = document.querySelector('.user-icon');
 
@@ -28,6 +29,12 @@ const settingPage = document.querySelector('.setting-page');
 const settingItems = document.querySelector('.setting-items');
 const settingGroups = document.querySelectorAll('.settings-group');
 const accDetails = document.querySelector('.account-details');
+const returnArrow = document.querySelector('.return');
+let check;
+
+// ACCOUNTS PAGE
+const logoutButton = document.querySelector('.logout');
+const deleteButton = document.querySelector('.option');
 
 const uiDivs = document.querySelectorAll('.colors');
 
@@ -47,6 +54,8 @@ const settingsNavD = document.querySelector('.settings');
 const modalBack = document.querySelector('.modal-background');
 const allModal = document.querySelectorAll('.modal');
 const soonModal = document.querySelector('.coming-soon');
+const logoutModal = document.querySelector('.logout-confirmation');
+const deleteModal = document.querySelector('.delete-confirmation');
 const cross = document.querySelectorAll('.cross-cancel');
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -103,6 +112,7 @@ const navigations = function (e, classCheck) {
     if (id.classList.contains('settings')) {
       hideSettingsGroup();
       removeClass(settingItems, 'side-transitions-left');
+      check = false;
     }
 
     removeClass(navPage, 'hidden');
@@ -118,6 +128,8 @@ const hideModal = function () {
   });
 
   addClass(modalBack, 'hidden');
+
+  addClass(mobileAside, 'hidden');
 };
 
 const showSoonModal = function () {
@@ -131,6 +143,11 @@ const showSoonModal = function () {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // IMPLEMENTATIONS
+hamburger.addEventListener('click', function () {
+  removeClass(modalBack, 'hidden');
+  removeClass(mobileAside, 'hidden');
+});
+
 user.addEventListener('click', function () {
   addClass(homePage, 'hidden');
 
@@ -144,6 +161,19 @@ user.addEventListener('click', function () {
 
   removeAllActive();
   addClass(settingsNavD, 'active');
+  check = true;
+});
+
+logoutButton.addEventListener('click', function () {
+  removeClass(modalBack, 'hidden');
+  removeClass(logoutModal, 'hidden');
+  removeClass(logoutModal, 'modal-transition');
+});
+
+deleteButton.addEventListener('click', function () {
+  removeClass(modalBack, 'hidden');
+  removeClass(deleteModal, 'hidden');
+  removeClass(deleteModal, 'modal-transition');
 });
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -166,6 +196,7 @@ crossEye.addEventListener('click', function () {
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 //SETTINGSSS
+
 settingItems.addEventListener('click', function (e) {
   if (e.target.closest('.available')) {
     const id = e.target.closest('.available');
@@ -181,6 +212,7 @@ settingItems.addEventListener('click', function (e) {
 
     removeClass(target, 'hidden');
     removeClass(target, 'side-transitions');
+    check = true;
   }
 
   if (e.target.closest('.popup')) {
@@ -191,6 +223,24 @@ settingItems.addEventListener('click', function (e) {
 
     removeClass(target, 'hidden');
     removeClass(target, 'modal-transitions');
+  }
+});
+
+returnArrow.addEventListener('click', function () {
+  if (check) {
+    hideSettingsGroup();
+    removeClass(settingItems, 'hidden');
+    removeClass(settingItems, 'side-transitions-left');
+    check = false;
+  } else {
+    removeAllActive();
+    hideFigures();
+    hidePages();
+
+    addClass(homeNavD, 'active');
+    removeClass(homePage, 'hidden');
+    removeClass(transactionCont, 'hidden');
+    removeClass(transactionCont, 'side-transitions');
   }
 });
 
@@ -223,6 +273,7 @@ mobileAside.addEventListener('click', function (e) {
 
 // MODAL
 modalBack.addEventListener('click', hideModal);
+
 cross.forEach(el => {
   el.addEventListener('click', hideModal);
 });
