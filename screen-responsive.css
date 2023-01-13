@@ -170,6 +170,15 @@
     top: 7rem;
   }
 
+  .dates {
+    padding: 1rem;
+  }
+
+  .welcome,
+  .last-login {
+    margin-bottom: 0.2rem;
+  }
+
   .dashboard {
     width: 90%;
     /* margin: 1.2rem auto 3.8rem auto; */
