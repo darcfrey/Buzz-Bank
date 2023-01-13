@@ -103,6 +103,7 @@ const navigations = function (e, classCheck) {
     removeAllActive();
     hideFigures();
     hidePages();
+    hideModal();
 
     addClass(id, 'active');
 
