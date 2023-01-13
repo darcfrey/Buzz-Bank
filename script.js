@@ -6,6 +6,7 @@ const user = document.querySelector('.user-icon');
 
 const pages = document.querySelectorAll('.pages');
 const homePage = document.querySelector('.home-page');
+const cancel = document.querySelectorAll('.cancel');
 
 // MAIN SECTIONS SELECTION
 const figures = document.querySelectorAll('.figures');
@@ -33,6 +34,7 @@ const uiDivs = document.querySelectorAll('.colors');
 // SIDE NAVS
 const asideNav = document.querySelector('.aside');
 const allSideNavs = document.querySelectorAll('.side-content');
+const mobileAside = document.querySelector('.aside-mobile');
 
 // DESKTOP NAVIGATIONS
 const homeNavD = document.querySelector('.home-desk-nav');
@@ -166,7 +168,29 @@ crossEye.addEventListener('click', function () {
 //SETTINGSSS
 settingItems.addEventListener('click', function (e) {
   if (e.target.closest('.available')) {
-    console.log('Yowaimo');
+    const id = e.target.closest('.available');
+    const target = document.querySelector(`.${id.dataset.subpage}`);
+
+    addClass(settingItems, 'hidden');
+    addClass(settingItems, 'side-transitions-left');
+
+    settingGroups.forEach(el => {
+      addClass(el, 'hidden');
+      addClass(el, 'side-transitions');
+    });
+
+    removeClass(target, 'hidden');
+    removeClass(target, 'side-transitions');
+  }
+
+  if (e.target.closest('.popup')) {
+    const id = e.target.closest('.popup');
+    const target = document.querySelector(`.${id.dataset.subpage}`);
+
+    removeClass(modalBack, 'hidden');
+
+    removeClass(target, 'hidden');
+    removeClass(target, 'modal-transitions');
   }
 });
 
@@ -188,6 +212,11 @@ settingItems.addEventListener('click', function (e) {
 
 asideNav.addEventListener('click', function (e) {
   navigations(e, 'side-content');
+});
+
+mobileAside.addEventListener('click', function (e) {
+  navigations(e, 'side-content');
+  addClass(mobileAside, 'hidden');
 });
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -212,4 +241,8 @@ uiDivs.forEach(el => {
   el.addEventListener('click', function () {
     showSoonModal();
   });
+});
+
+cancel.forEach(el => {
+  el.addEventListener('click', hideModal);
 });

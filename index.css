@@ -720,7 +720,7 @@ form.transfer-form {
 .aside {
   background-color: #e9ecef;
   height: 100%;
-  padding: 2rem 0px 1rem 0;
+  padding: 2rem 0px 0rem 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -894,7 +894,7 @@ form.transfer-form {
 .delete-buttons,
 .logout-buttons {
   padding: 0.5rem 1.5rem;
-  font-size: 0.7rem;
+  font-size: 1.2rem;
   cursor: pointer;
 }
 
