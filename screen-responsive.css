@@ -119,6 +119,10 @@
 
   .aside-mobile {
     display: block;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 80%;
   }
 
   /* MODAL BOXES */
@@ -148,7 +152,7 @@
 
 @media only screen and (max-width: 730px) {
   :root {
-    font-size: 22px;
+    font-size: 20px;
   }
 
   .login {
@@ -207,7 +211,7 @@
   }
 
   .setting-page {
-    padding: 2rem 1.3rem;
+    padding: 2rem 0.5rem;
   }
 
   .setting-heading {
@@ -217,7 +221,8 @@
 
   .setting-items {
     width: 95%;
-    /* padding: 0.8rem; */
+    /* padding: 0.6rem; */
+    padding-left: 0.6rem;
   }
 
   .title-heading {
@@ -254,7 +259,7 @@
 
 @media only screen and (max-width: 550px) {
   :root {
-    font-size: 16px;
+    font-size: 18px;
   }
 
   .dark,
