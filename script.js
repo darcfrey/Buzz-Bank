@@ -184,14 +184,14 @@ eye.addEventListener('click', function () {
   toggleClass(eye, 'hidden');
   toggleClass(crossEye, 'hidden');
 
-  accBalance.textContent = '₦XXXXXX.XX';
+  accBalance.textContent = '₦XXXX.XX';
 });
 
 crossEye.addEventListener('click', function () {
   toggleClass(crossEye, 'hidden');
   toggleClass(eye, 'hidden');
 
-  accBalance.textContent = '₦300';
+  accBalance.textContent = '₦300.00';
 });
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
