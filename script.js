@@ -19,7 +19,7 @@ const paymentCont = document.querySelector('.payments-section');
 // DASHBOARD
 const eye = document.querySelector('.eye-1');
 const crossEye = document.querySelector('.eye-slash');
-const accNo = document.querySelector('.aNo');
+const accBalance = document.querySelector('.balance');
 
 // PAYMENTS ICONS
 const icons = document.querySelectorAll('.icon-container');
@@ -184,14 +184,14 @@ eye.addEventListener('click', function () {
   toggleClass(eye, 'hidden');
   toggleClass(crossEye, 'hidden');
 
-  accNo.textContent = '**********';
+  accBalance.textContent = '₦XXXXXX.XX';
 });
 
 crossEye.addEventListener('click', function () {
   toggleClass(crossEye, 'hidden');
   toggleClass(eye, 'hidden');
 
-  accNo.textContent = '0123456789';
+  accBalance.textContent = '₦300';
 });
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
