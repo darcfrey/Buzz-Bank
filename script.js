@@ -15,6 +15,7 @@ const transactionCont = document.querySelector('.transactions');
 const transferCont = document.querySelector('.transfers');
 const loanCont = document.querySelector('.loans');
 const paymentCont = document.querySelector('.payments-section');
+const viewAcc = document.querySelector('.view-acc');
 
 // DASHBOARD
 const eye = document.querySelector('.eye-1');
@@ -57,6 +58,7 @@ const soonModal = document.querySelector('.coming-soon');
 const logoutModal = document.querySelector('.logout-confirmation');
 const deleteModal = document.querySelector('.delete-confirmation');
 const cross = document.querySelectorAll('.cross-cancel');
+const allAccounts = document.querySelector('.all-accounts');
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -129,6 +131,7 @@ const hideModal = function () {
   });
 
   addClass(modalBack, 'hidden');
+  addClass(allAccounts, 'hidden');
 
   addClass(mobileAside, 'hidden');
 };
@@ -175,6 +178,11 @@ deleteButton.addEventListener('click', function () {
   removeClass(modalBack, 'hidden');
   removeClass(deleteModal, 'hidden');
   removeClass(deleteModal, 'modal-transition');
+});
+
+viewAcc.addEventListener('click', function () {
+  removeClass(modalBack, 'hidden');
+  removeClass(allAccounts, 'hidden');
 });
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
