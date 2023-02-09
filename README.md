@@ -14,6 +14,8 @@ This a web bank based on frontend technologies (HTML, CSS and JavaScript). It is
 
 - Checks for error when creating or logging in (If account details already exists)
 
+- Login and switch between hard coded accounts to see implementation functions (money transferred and others)
+
 - Settings menu
 
 ### NOTE
