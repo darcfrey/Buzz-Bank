@@ -1,4 +1,4 @@
-'use strict';
+// 'use strict';
 
 // GENERAL ELEMENTS SELECTION
 const hamburger = document.querySelector('.menu-icon');
@@ -59,6 +59,50 @@ const logoutModal = document.querySelector('.logout-confirmation');
 const deleteModal = document.querySelector('.delete-confirmation');
 const cross = document.querySelectorAll('.cross-cancel');
 const allAccounts = document.querySelector('.all-accounts');
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////A
+// MAIN APP
+const account1 = {
+  owner: 'Julian Moses',
+  username: 'jaylam',
+  accountNo: 1128863537,
+  movements: [300, -4000, 10000, 30, 7000, -800.5, -60],
+  pin: 0000,
+};
+
+const account2 = {
+  owner: 'Olaleye Rainbow',
+  username: 'olaray',
+  accountNo: 5215277734,
+  movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
+  pin: 1111,
+};
+
+const account3 = {
+  owner: 'Sheenur Wango',
+  username: 'shedeyplay',
+  accountNo: 0829498278,
+  movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
+  pin: 2222,
+};
+
+const account4 = {
+  owner: 'Mark Smith',
+  username: 'marselle',
+  accountNo: 1446709730,
+  movements: [200, -200, 340, -300, -20, 50, 400, -460],
+  pin: 3333,
+};
+
+const account5 = {
+  owner: 'Kyu Beeg',
+  username: 'kepao',
+  accountNo: 0223346771,
+  movements: [430, 1000, 700, 50, 90],
+  pin: 4444,
+};
+
+const accounts = [account1, account2, account3, account4];
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
