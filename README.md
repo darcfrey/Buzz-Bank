@@ -10,11 +10,13 @@ This a web bank based on frontend technologies (HTML, CSS and JavaScript). It is
 
 - Transfer to any accounts created or available on the platform
 
+- Loan credited to account
+
 - Responsive and adapts to screen of every sizes
 
 - Checks for error when creating or logging in (If account details already exists)
 
-- Login and switch between hard coded accounts to see implementation functions (money transferred and others)
+- Login and switch between hard coded accounts to see implemented functions (money transferred and others)
 
 - Settings menu
 
