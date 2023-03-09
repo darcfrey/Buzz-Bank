@@ -12,6 +12,8 @@ This a web bank based on frontend technologies (HTML, CSS and JavaScript). It is
 
 - Loan credited to account
 
+- Funny alert when balance is less than certain amount
+
 - Responsive and adapts to screen of every sizes
 
 - Checks for error when creating or logging in (If account details already exists)
