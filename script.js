@@ -1,6 +1,11 @@
 // 'use strict';
 
 // GENERAL ELEMENTS SELECTION
+const loginDate = document.querySelector('.date-now');
+const lastLogin = document.querySelector('.last-date');
+const userFirstName = document.querySelector('.userFN');
+const userName = document.querySelector('.userName');
+
 const hamburger = document.querySelector('.menu-icon');
 const marquee = document.querySelector('.sapa');
 const user = document.querySelector('.user-icon');
@@ -20,7 +25,11 @@ const viewAcc = document.querySelector('.view-acc');
 // DASHBOARD
 const eye = document.querySelector('.eye-1');
 const crossEye = document.querySelector('.eye-slash');
+const fullName = document.querySelector('.uName');
+const accNumber = document.querySelector('.aNo');
 const accBalance = document.querySelector('.balance');
+const moneyIn = document.querySelector('.inLabel');
+const moneyOut = document.querySelector('.outLabel');
 
 // PAYMENTS ICONS
 const icons = document.querySelectorAll('.icon-container');
@@ -60,74 +69,36 @@ const deleteModal = document.querySelector('.delete-confirmation');
 const cross = document.querySelectorAll('.cross-cancel');
 const allAccounts = document.querySelector('.all-accounts');
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////A
-// MAIN APP
-const account1 = {
-  owner: 'Julian Moses',
-  username: 'jaylam',
-  accountNo: 1128863537,
-  movements: [300, -4000, 10000, 30, 7000, -800.5, -60],
-  pin: 0000,
-};
-
-const account2 = {
-  owner: 'Olaleye Rainbow',
-  username: 'olaray',
-  accountNo: 5215277734,
-  movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
-  pin: 1111,
-};
-
-const account3 = {
-  owner: 'Sheenur Wango',
-  username: 'shedeyplay',
-  accountNo: 0829498278,
-  movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
-  pin: 2222,
-};
-
-const account4 = {
-  owner: 'Mark Smith',
-  username: 'marselle',
-  accountNo: 1446709730,
-  movements: [200, -200, 340, -300, -20, 50, 400, -460],
-  pin: 3333,
-};
-
-const account5 = {
-  owner: 'Kyu Beeg',
-  username: 'kepao',
-  accountNo: 0223346771,
-  movements: [430, 1000, 700, 50, 90],
-  pin: 4444,
-};
-
-const accounts = [account1, account2, account3, account4];
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // FUNCTIONS
 
+// includes class to an element
 const addClass = function (element, className) {
   element.classList.add(className);
 };
 
+// removes class from an element
 const removeClass = function (element, className) {
   element.classList.remove(className);
 };
 
+// togles classs on an element
 const toggleClass = function (element, className) {
   element.classList.toggle(className);
 };
 
+// hides pages on a section
 const hidePages = function () {
   pages.forEach(el => addClass(el, 'hidden'));
 };
 
+// removes active from all nav item
 const removeAllActive = function () {
   allSideNavs.forEach(el => removeClass(el, 'active'));
 };
 
+// hide figures
 const hideFigures = function () {
   figures.forEach(el => {
     addClass(el, 'hidden');
@@ -135,6 +106,7 @@ const hideFigures = function () {
   });
 };
 
+// hide settings subgroup
 const hideSettingsGroup = function () {
   settingGroups.forEach(el => {
     addClass(el, 'hidden');
@@ -142,6 +114,7 @@ const hideSettingsGroup = function () {
   });
 };
 
+// primary page navigation
 const navigations = function (e, classCheck) {
   if (e.target.classList.contains(classCheck)) {
     const id = e.target;
@@ -168,6 +141,7 @@ const navigations = function (e, classCheck) {
   }
 };
 
+// hide all modals on page
 const hideModal = function () {
   allModal.forEach(el => {
     addClass(el, 'hidden');
@@ -180,10 +154,72 @@ const hideModal = function () {
   addClass(mobileAside, 'hidden');
 };
 
+// show coming soon modal
 const showSoonModal = function () {
   removeClass(modalBack, 'hidden');
   removeClass(soonModal, 'hidden');
   removeClass(soonModal, 'modal-transition');
+};
+
+// updating logins dates
+const updateLoginsDate = function (date) {
+  const locale = navigator.language;
+
+  const options = {
+    hour: 'numeric',
+    minute: 'numeric',
+    day: 'numeric',
+    year: 'numeric',
+    month: 'long',
+    weekday: 'long',
+  };
+
+  return new Intl.DateTimeFormat(locale, options).format(date);
+};
+
+// last login dates
+const updateLastLogin = function (acc) {
+  if (acc.lastLoginDate) {
+    const date = new Date(acc.lastLoginDate);
+    const formattedDate = updateLoginsDate(date);
+    lastLogin.textContent = `${formattedDate}`;
+    acc.lastLogin = new Date();
+  } else {
+    lastLogin.textContent = 'N/A';
+  }
+};
+
+// updating name and username
+const names = function (acc) {
+  let firstName = acc.owner.split(' ');
+  firstName = firstName[0];
+
+  // firstname
+  userFirstName.textContent = `${firstName}`;
+
+  // username
+  userName.textContent = `${acc.username.replace(
+    acc.username[0],
+    acc.username[0].toUpperCase()
+  )}`;
+};
+
+// dashboard info
+const dashboard = function (acc) {
+  // update fullname in dashboard
+  fullName.textContent = `${acc.owner
+    .split(' ')
+    .map(val => val.replace(val[0], val[0].toUpperCase()))
+    .join(' ')}`;
+
+  // update account number in dashboard
+  accNumber.textContent = `${acc.accountNo}`;
+
+  // account balance
+  acc.balance = acc.movements.reduce((acc, cur) => acc + cur, 0);
+  accBalance.textContent = `₦${acc.balance}`;
+
+  // money in and out
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -350,3 +386,112 @@ uiDivs.forEach(el => {
 cancel.forEach(el => {
   el.addEventListener('click', hideModal);
 });
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// MAIN APP ALGORITHM
+const account1 = {
+  owner: 'Julian Moses',
+  username: 'jaylam',
+  accountNo: 1128863537,
+  movements: [300, -4000, 10000, 30, 7000, -800.5, -60],
+  pin: 0000,
+  movementsDates: [
+    '2019-11-18T21:31:17.178Z',
+    '2019-12-23T07:42:02.383Z',
+    '2020-01-28T09:15:04.904Z',
+    '2020-04-01T10:17:24.185Z',
+    '2020-05-08T14:11:59.604Z',
+    '2020-07-26T17:01:17.194Z',
+    '2020-07-28T23:36:17.929Z',
+  ],
+  lastLoginDate: '2021-09-05T17:05:00.000Z',
+};
+
+const account2 = {
+  owner: 'Olaleye Rainbow',
+  username: 'olaray',
+  accountNo: 5215277734,
+  movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
+  pin: 1111,
+  movementsDates: [
+    '2020-04-01T10:17:24.185Z',
+    '2020-08-01T10:51:36.790Z',
+    '2019-11-01T13:15:33.035Z',
+    '2019-11-30T09:48:16.867Z',
+    '2019-12-25T06:04:23.907Z',
+    '2020-01-25T14:18:46.235Z',
+    '2020-02-05T16:33:06.386Z',
+    '2020-04-10T14:43:26.374Z',
+  ],
+  lastLogin: '2020-05-08T14:11:59.604Z',
+};
+
+const account3 = {
+  owner: 'Sheenur Wango',
+  username: 'shedeyplay',
+  accountNo: 0829498278,
+  movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
+  pin: 2222,
+  movementsDates: [
+    '2019-11-18T21:31:17.178Z',
+    '2019-12-23T07:42:02.383Z',
+    '2020-01-28T09:15:04.904Z',
+    '2020-04-01T10:17:24.185Z',
+    '2020-05-08T14:11:59.604Z',
+    '2020-07-26T17:01:17.194Z',
+    '2020-07-28T23:36:17.929Z',
+  ],
+  lastLogin: '2020-02-05T16:33:06.386Z',
+};
+
+const account4 = {
+  owner: 'Mark Smith',
+  username: 'marselle',
+  accountNo: 1446709730,
+  movements: [200, -200, 340, -300, -20, 50, 400, -460],
+  pin: 3333,
+  movementsDates: [
+    '2020-04-01T10:17:24.185Z',
+    '2020-08-01T10:51:36.790Z',
+    '2019-11-01T13:15:33.035Z',
+    '2019-11-30T09:48:16.867Z',
+    '2019-12-25T06:04:23.907Z',
+    '2020-01-25T14:18:46.235Z',
+    '2020-02-05T16:33:06.386Z',
+    '2020-04-10T14:43:26.374Z',
+  ],
+  lastLogin: '2019-12-23T07:42:02.383Z',
+};
+
+const account5 = {
+  owner: 'Kyu Beeg',
+  username: 'kepao',
+  accountNo: 0223346771,
+  movements: [430, 1000, 700, 50, 90],
+  pin: 4444,
+  movementsDates: [
+    '2019-11-18T21:31:17.178Z',
+    '2019-12-23T07:42:02.383Z',
+    '2020-01-28T09:15:04.904Z',
+    '2020-04-01T10:17:24.185Z',
+    '2020-05-08T14:11:59.604Z',
+    '2020-07-26T17:01:17.194Z',
+    '2020-07-28T23:36:17.929Z',
+  ],
+  lastLogin: '2020-04-10T14:43:26.374Z',
+};
+
+const accounts = [account1, account2, account3, account4];
+
+let curUser;
+curUser = account1;
+
+// On Login, call date
+const now = updateLoginsDate(new Date());
+loginDate.textContent = `${now}`;
+
+// calling last login date
+updateLastLogin(curUser);
+
+// updating user firstname and username
+names(curUser);
