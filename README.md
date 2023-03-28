@@ -34,4 +34,4 @@ Use only in-app navigations as this is a Single Page Application
 
 - Mail - [dreydare16@gmail.com](mailto:dreydare16@gmail.com)
 
-[Click to go to live site](https://buzzbank.netlify.app/main/index.html)
+[Click to go to live site](https://buzzbank.netlify.app/)
