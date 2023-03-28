@@ -24,7 +24,9 @@ This a web bank based on frontend technologies (HTML, CSS and JavaScript). It is
 
 ### NOTE
 
-This is not a real bank app, it is just a prototype and a practice project, any changes made will not be reflected in actuality
+This is not a real bank app, it is just a prototype and a practice project, any changes made will not be reflected in actuality.
+
+Use only in-app navigations as this is a Single Page Application
 
 #### Author
 
@@ -32,4 +34,4 @@ This is not a real bank app, it is just a prototype and a practice project, any 
 
 - Mail - [dreydare16@gmail.com](mailto:dreydare16@gmail.com)
 
-[Click to go to live site](https://buzzbank.netlify.app)
+[Click to go to live site](https://buzzbank.netlify.app/main/index.html)
