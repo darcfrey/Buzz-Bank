@@ -216,10 +216,17 @@ const dashboard = function (acc) {
   accNumber.textContent = `${acc.accountNo}`;
 
   // account balance
-  acc.balance = acc.movements.reduce((acc, cur) => acc + cur, 0);
+  acc.balance = acc.movements.reduce((acc, cur) => acc + cur, 0).toFixed(2);
   accBalance.textContent = `₦${acc.balance}`;
 
   // money in and out
+  moneyIn.textContent = `₦${acc.movements
+    .filter(acc => acc > 0)
+    .reduce((acc, cur) => acc + cur, 0)
+    .toFixed(2)}`;
+  moneyOut.textContent = `₦${Math.abs(
+    acc.movements.filter(acc => acc < 0).reduce((acc, cur) => acc + cur, 0)
+  ).toFixed(2)}`;
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -495,3 +502,6 @@ updateLastLogin(curUser);
 
 // updating user firstname and username
 names(curUser);
+
+// updating dashboard datas
+dashboard(curUser);
