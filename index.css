@@ -808,6 +808,7 @@ form.transfer-form {
   display: flex;
   flex-direction: column;
   gap: 30px;
+  overflow-y: auto;
 }
 
 .accName {

@@ -5,6 +5,8 @@ const loginDate = document.querySelector('.date-now');
 const lastLogin = document.querySelector('.last-date');
 const userFirstName = document.querySelector('.userFN');
 const userName = document.querySelector('.userName');
+const userName_mobile = document.querySelector('.user-mobile');
+const sapa = document.querySelector('.sapa');
 
 const hamburger = document.querySelector('.menu-icon');
 const marquee = document.querySelector('.sapa');
@@ -14,9 +16,12 @@ const pages = document.querySelectorAll('.pages');
 const homePage = document.querySelector('.home-page');
 const cancel = document.querySelectorAll('.cancel');
 
+const transferButton = document.querySelector('.transfer-button');
+
 // MAIN SECTIONS SELECTION
 const figures = document.querySelectorAll('.figures');
 const transactionCont = document.querySelector('.transactions');
+const containerMovements = document.querySelector('.trans-container');
 const transferCont = document.querySelector('.transfers');
 const loanCont = document.querySelector('.loans');
 const paymentCont = document.querySelector('.payments-section');
@@ -60,6 +65,9 @@ const loanNavD = document.querySelector('.loan-desk-nav');
 const payNavD = document.querySelector('.payment-desk-nav');
 const settingsNavD = document.querySelector('.settings');
 
+// MOBILE
+const homeNavM = document.querySelector('.homeNavM');
+
 // MODALS
 const modalBack = document.querySelector('.modal-background');
 const allModal = document.querySelectorAll('.modal');
@@ -68,7 +76,19 @@ const logoutModal = document.querySelector('.logout-confirmation');
 const deleteModal = document.querySelector('.delete-confirmation');
 const cross = document.querySelectorAll('.cross-cancel');
 const allAccounts = document.querySelector('.all-accounts');
+const successModal = document.querySelector('.transaction-success');
 
+// TRANSFER FORMS
+const transID = document.querySelector('.transfer-id');
+const transAmount = document.querySelector('.transfer-amount');
+const transferDesc = document.getElementById('desc');
+const transferPin = document.getElementById('transfer-pin');
+const noTransAccError = document.querySelector('.trans-acc-error');
+const noTransPinError = document.querySelector('.trans-pin-error');
+
+// LOAN FORMS
+const loanAmount = document.querySelector('.loan-input');
+const loanButton = document.querySelector('.loan-button');
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // FUNCTIONS
@@ -163,18 +183,13 @@ const showSoonModal = function () {
 
 // updating logins dates
 const updateLoginsDate = function (date) {
-  const locale = navigator.language;
-
   const options = {
-    hour: 'numeric',
-    minute: 'numeric',
     day: 'numeric',
     year: 'numeric',
-    month: 'long',
-    weekday: 'long',
+    month: 'numeric',
   };
 
-  return new Intl.DateTimeFormat(locale, options).format(date);
+  return new Intl.DateTimeFormat('en-NG', options).format(date);
 };
 
 // last login dates
@@ -198,10 +213,18 @@ const names = function (acc) {
   userFirstName.textContent = `${firstName}`;
 
   // username
-  userName.textContent = `${acc.username.replace(
-    acc.username[0],
-    acc.username[0].toUpperCase()
-  )}`;
+  const nameUser = acct =>
+    acct.username.replace(acct.username[0], acct.username[0].toUpperCase());
+  userName.textContent = nameUser(acc);
+  userName_mobile.textContent = nameUser(acc);
+};
+
+// Formating currency
+const formatCur = function (value, locale, currency) {
+  return new Intl.NumberFormat(locale, {
+    style: 'currency',
+    currency: currency,
+  }).format(value);
 };
 
 // dashboard info
@@ -217,16 +240,27 @@ const dashboard = function (acc) {
 
   // account balance
   acc.balance = acc.movements.reduce((acc, cur) => acc + cur, 0).toFixed(2);
-  accBalance.textContent = `₦${acc.balance}`;
+  accBalance.textContent = `${formatCur(acc.balance, 'en-NG', 'NGN')}`;
+};
 
-  // money in and out
-  moneyIn.textContent = `₦${acc.movements
+// bank alert
+const sapaAlert = function (acc) {
+  if (acc.balance <= 1000) removeClass(sapa, 'hidden');
+  else addClass(sapa, 'hidden');
+};
+
+// money in and out
+const expenses = function (acc) {
+  let credit = acc.movements
     .filter(acc => acc > 0)
     .reduce((acc, cur) => acc + cur, 0)
-    .toFixed(2)}`;
-  moneyOut.textContent = `₦${Math.abs(
+    .toFixed(2);
+  let debit = Math.abs(
     acc.movements.filter(acc => acc < 0).reduce((acc, cur) => acc + cur, 0)
-  ).toFixed(2)}`;
+  ).toFixed(2);
+
+  moneyIn.textContent = `${formatCur(credit, 'en-NG', 'NGN')}`;
+  moneyOut.textContent = `${formatCur(debit, 'en-NG', 'NGN')}`;
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -280,13 +314,8 @@ eye.addEventListener('click', function () {
   toggleClass(crossEye, 'hidden');
 
   accBalance.textContent = '₦XXXX.XX';
-});
-
-crossEye.addEventListener('click', function () {
-  toggleClass(crossEye, 'hidden');
-  toggleClass(eye, 'hidden');
-
-  accBalance.textContent = '₦300.00';
+  moneyIn.textContent = '₦XXXX.XX';
+  moneyOut.textContent = '₦XXXX.XX';
 });
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -399,7 +428,7 @@ cancel.forEach(el => {
 const account1 = {
   owner: 'Julian Moses',
   username: 'jaylam',
-  accountNo: 1128863537,
+  accountNo: '1128863537',
   movements: [300, -4000, 10000, 30, 7000, -800.5, -60],
   pin: 0000,
   movementsDates: [
@@ -411,13 +440,22 @@ const account1 = {
     '2020-07-26T17:01:17.194Z',
     '2020-07-28T23:36:17.929Z',
   ],
+  desc: [
+    'airtime',
+    'item7',
+    'payee00',
+    'school fees',
+    'stamp fee',
+    'cashier',
+    'biro',
+  ],
   lastLoginDate: '2021-09-05T17:05:00.000Z',
 };
 
 const account2 = {
   owner: 'Olaleye Rainbow',
   username: 'olaray',
-  accountNo: 5215277734,
+  accountNo: '5215277734',
   movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
   pin: 1111,
   movementsDates: [
@@ -430,13 +468,22 @@ const account2 = {
     '2020-02-05T16:33:06.386Z',
     '2020-04-10T14:43:26.374Z',
   ],
+  desc: [
+    'airtime',
+    'item7',
+    'payee00',
+    'school fees',
+    'stamp fee',
+    'cashier',
+    'biro',
+  ],
   lastLogin: '2020-05-08T14:11:59.604Z',
 };
 
 const account3 = {
   owner: 'Sheenur Wango',
   username: 'shedeyplay',
-  accountNo: 0829498278,
+  accountNo: '0829498278',
   movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
   pin: 2222,
   movementsDates: [
@@ -448,13 +495,22 @@ const account3 = {
     '2020-07-26T17:01:17.194Z',
     '2020-07-28T23:36:17.929Z',
   ],
+  desc: [
+    'airtime',
+    'item7',
+    'payee00',
+    'school fees',
+    'stamp fee',
+    'cashier',
+    'biro',
+  ],
   lastLogin: '2020-02-05T16:33:06.386Z',
 };
 
 const account4 = {
   owner: 'Mark Smith',
   username: 'marselle',
-  accountNo: 1446709730,
+  accountNo: '1446709730',
   movements: [200, -200, 340, -300, -20, 50, 400, -460],
   pin: 3333,
   movementsDates: [
@@ -467,13 +523,22 @@ const account4 = {
     '2020-02-05T16:33:06.386Z',
     '2020-04-10T14:43:26.374Z',
   ],
+  desc: [
+    'airtime',
+    'item7',
+    'payee00',
+    'school fees',
+    'stamp fee',
+    'cashier',
+    'biro',
+  ],
   lastLogin: '2019-12-23T07:42:02.383Z',
 };
 
 const account5 = {
   owner: 'Kyu Beeg',
   username: 'kepao',
-  accountNo: 0223346771,
+  accountNo: '0223346771',
   movements: [430, 1000, 700, 50, 90],
   pin: 4444,
   movementsDates: [
@@ -485,23 +550,171 @@ const account5 = {
     '2020-07-26T17:01:17.194Z',
     '2020-07-28T23:36:17.929Z',
   ],
+  desc: [
+    'airtime',
+    'item7',
+    'payee00',
+    'school fees',
+    'stamp fee',
+    'cashier',
+    'biro',
+  ],
   lastLogin: '2020-04-10T14:43:26.374Z',
 };
 
-const accounts = [account1, account2, account3, account4];
+const accounts = [account1, account2, account3, account4, account5];
 
-let curUser;
+let curUser, toUser;
 curUser = account1;
 
-// On Login, call date
-const now = updateLoginsDate(new Date());
-loginDate.textContent = `${now}`;
+// ACCOUNT BASED FUNCTIONS
+const updateNew = function () {
+  // On Login, call date
+  const now = updateLoginsDate(new Date());
+  loginDate.textContent = `${now}`;
 
-// calling last login date
-updateLastLogin(curUser);
+  // calling last login date
+  updateLastLogin(curUser);
 
-// updating user firstname and username
-names(curUser);
+  // updating user firstname and username
+  names(curUser);
 
-// updating dashboard datas
-dashboard(curUser);
+  // updating dashboard datas
+  dashboard(curUser);
+  expenses(curUser);
+};
+
+// update transactions
+const displayMovemements = function (acc) {
+  containerMovements.innerHTML = '';
+  acc.movements.forEach((mov, i) => {
+    const movDate = acc.movementsDates[i];
+    const desc = acc.desc[i];
+    const formDate = updateLoginsDate(mov);
+
+    const html = `
+    <div class="transaction ${mov > 0 ? 'credit' : 'debit'}">
+  <p class="type">${mov > 0 ? 'Credit' : 'Debit'}</p>
+
+  <div class="chunk">
+    <p class="desc">${desc.replace(desc[0], desc[0].toUpperCase())}</p>
+    <p class="trans-date">${movDate}</p>
+  </div>
+
+  <p class="amount">${formatCur(Math.abs(mov), 'en-NG', 'NGN')}</p>
+</div>`;
+
+    containerMovements.insertAdjacentHTML('afterbegin', html);
+  });
+};
+
+const displayAllAccounts = function (accs) {
+  allAccounts.innerHTML = '';
+  accs.forEach((acc, i) => {
+    if (acc !== curUser) {
+      const html = `<div class="accDetails">
+      <h4 class="accName">Account ${i}</h4>
+      <p class="accNo">${acc.accountNo}</p>
+    </div>`;
+      allAccounts.insertAdjacentHTML('beforeend', html);
+    }
+  });
+  allAccounts.insertAdjacentHTML('afterbegin', '<h3>ACCOUNTS</h3>');
+};
+
+const transferFunds = function () {
+  let accInput = transID.value;
+  toUser = accounts.find(
+    acc => acc.username === accInput || acc.accountNo === accInput
+  );
+
+  const amount = Number(transAmount.value);
+  const pin = Number(transferPin.value);
+
+  if (toUser) {
+    addClass(noTransAccError, 'hidden');
+
+    if (amount > 0 && amount <= curUser.balance) {
+      if (curUser.pin === pin) {
+        addClass(noTransPinError, 'hidden');
+
+        toUser.movements.push(amount);
+        toUser.movementsDates.push(new Date());
+
+        curUser.movements.push(-amount);
+        curUser.movementsDates.push(new Date());
+
+        transID.value =
+          transAmount.value =
+          transferPin.value =
+          transferDesc.value =
+            '';
+
+        removeClass(modalBack, 'hidden');
+        removeClass(successModal, 'hidden');
+
+        if (transferDesc.value) {
+          toUser.desc.push(transferDesc.value);
+          curUser.desc.push(transferDesc.value);
+        } else {
+          toUser.desc.push('deposit');
+          curUser.desc.push('withdrawal');
+        }
+
+        // Update navs active
+        removeAllActive();
+        addClass(homeNavD, 'active');
+        addClass(homeNavM, 'active');
+
+        // return to main page
+        hideFigures();
+        hidePages();
+        removeClass(homePage, 'hidden');
+        removeClass(transactionCont, 'hidden');
+        removeClass(transactionCont, 'side-transitions');
+      } else removeClass(noTransPinError, 'hidden');
+    }
+  } else removeClass(noTransAccError, 'hidden');
+};
+
+const requestLoan = function (acc) {
+  const amount = Number(loanAmount.value);
+
+  if (amount <= acc.balance * 0.5) {
+  }
+};
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//display
+updateNew();
+displayMovemements(curUser);
+crossEye.addEventListener('click', function () {
+  toggleClass(crossEye, 'hidden');
+  toggleClass(eye, 'hidden');
+
+  // accBalance.textContent = `₦${curUser.balance}`;
+  accBalance.textContent = `${formatCur(curUser.balance, 'en-NG', 'NGN')}`;
+  expenses(curUser);
+});
+
+displayAllAccounts(accounts);
+
+// TRANSFER EVENT
+transferButton.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  // actual transfer check and implementation
+  transferFunds();
+
+  // update dashbord balances
+  dashboard(curUser);
+  expenses(curUser);
+
+  // update movements container
+  displayMovemements(curUser);
+
+  // low balance check
+  sapaAlert(curUser);
+});
+
+// LOAN EVENT
