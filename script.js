@@ -48,8 +48,19 @@ const returnArrow = document.querySelector('.return');
 let check;
 
 // ACCOUNTS PAGE
+const profileFName = document.querySelector('.profile-first-name');
+const profileLName = document.querySelector('.profile-last-name');
+const profileAccNo = document.querySelector('.profile-acc-no');
+const profileDOB = document.querySelector('.profile-dob');
 const logoutButton = document.querySelector('.logout');
 const deleteButton = document.querySelector('.option');
+
+// PASSWORD MANAGEMENT PAGE
+const oldPassword = document.querySelector('.old-pword');
+const newChangedPassword = document.querySelector('.new-pword');
+const verifyChangedPassword = document.querySelector('.verify-new-password');
+const savePasswordButton = document.querySelector('.savePword-button');
+const cancelPwordButton = document.querySelector('.cancel-pword-button');
 
 const uiDivs = document.querySelectorAll('.colors');
 
@@ -81,7 +92,7 @@ const successModal = document.querySelector('.transaction-success');
 // TRANSFER FORMS
 const transID = document.querySelector('.transfer-id');
 const transAmount = document.querySelector('.transfer-amount');
-const transferDesc = document.getElementById('desc');
+const transferDesc = document.querySelector('.trans-desc');
 const transferPin = document.getElementById('transfer-pin');
 const noTransAccError = document.querySelector('.trans-acc-error');
 const noTransPinError = document.querySelector('.trans-pin-error');
@@ -217,6 +228,22 @@ const names = function (acc) {
     acct.username.replace(acct.username[0], acct.username[0].toUpperCase());
   userName.textContent = nameUser(acc);
   userName_mobile.textContent = nameUser(acc);
+
+  // settings profile
+  const fullName = acc.owner.split(' ');
+  profileFName.value = fullName[0].replace(
+    fullName[0][0],
+    fullName[0][0].toUpperCase()
+  );
+  profileLName.value = fullName[1].replace(
+    fullName[1][0],
+    fullName[1][0].toUpperCase()
+  );
+  profileAccNo.value = acc.accountNo;
+
+  if (!acc.dob) {
+    profileDOB.value = 'N/A';
+  }
 };
 
 // Formating currency
@@ -429,6 +456,7 @@ const account1 = {
   owner: 'Julian Moses',
   username: 'jaylam',
   accountNo: '1128863537',
+  password: 'jayjay',
   movements: [300, -4000, 10000, 30, 7000, -800.5, -60],
   pin: 0000,
   movementsDates: [
@@ -443,19 +471,21 @@ const account1 = {
   desc: [
     'airtime',
     'item7',
-    'payee00',
     'school fees',
     'stamp fee',
+    'payee00',
     'cashier',
     'biro',
   ],
   lastLoginDate: '2021-09-05T17:05:00.000Z',
+  dob: '',
 };
 
 const account2 = {
   owner: 'Olaleye Rainbow',
   username: 'olaray',
   accountNo: '5215277734',
+  password: 'marshala',
   movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
   pin: 1111,
   movementsDates: [
@@ -478,12 +508,14 @@ const account2 = {
     'biro',
   ],
   lastLogin: '2020-05-08T14:11:59.604Z',
+  dob: '',
 };
 
 const account3 = {
   owner: 'Sheenur Wango',
   username: 'shedeyplay',
   accountNo: '0829498278',
+  password: 'shida11',
   movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
   pin: 2222,
   movementsDates: [
@@ -505,12 +537,14 @@ const account3 = {
     'biro',
   ],
   lastLogin: '2020-02-05T16:33:06.386Z',
+  dob: '',
 };
 
 const account4 = {
   owner: 'Mark Smith',
   username: 'marselle',
   accountNo: '1446709730',
+  password: 'marty',
   movements: [200, -200, 340, -300, -20, 50, 400, -460],
   pin: 3333,
   movementsDates: [
@@ -527,18 +561,20 @@ const account4 = {
     'airtime',
     'item7',
     'payee00',
-    'school fees',
     'stamp fee',
+    'school fees',
     'cashier',
     'biro',
   ],
   lastLogin: '2019-12-23T07:42:02.383Z',
+  dob: '',
 };
 
 const account5 = {
   owner: 'Kyu Beeg',
   username: 'kepao',
   accountNo: '0223346771',
+  password: 'cantthink',
   movements: [430, 1000, 700, 50, 90],
   pin: 4444,
   movementsDates: [
@@ -560,6 +596,7 @@ const account5 = {
     'biro',
   ],
   lastLogin: '2020-04-10T14:43:26.374Z',
+  dob: '',
 };
 
 const accounts = [account1, account2, account3, account4, account5];
@@ -631,7 +668,7 @@ const transferFunds = function () {
   const amount = Number(transAmount.value);
   const pin = Number(transferPin.value);
 
-  if (toUser) {
+  if (toUser && toUser.accountNo !== curUser.accountNo) {
     addClass(noTransAccError, 'hidden');
 
     if (amount > 0 && amount <= curUser.balance) {
@@ -644,6 +681,14 @@ const transferFunds = function () {
         curUser.movements.push(-amount);
         curUser.movementsDates.push(new Date());
 
+        if (transferDesc.value) {
+          toUser.desc.push(transferDesc.value);
+          curUser.desc.push(transferDesc.value);
+        } else {
+          toUser.desc.push('deposit');
+          curUser.desc.push('withdrawal');
+        }
+
         transID.value =
           transAmount.value =
           transferPin.value =
@@ -652,14 +697,6 @@ const transferFunds = function () {
 
         removeClass(modalBack, 'hidden');
         removeClass(successModal, 'hidden');
-
-        if (transferDesc.value) {
-          toUser.desc.push(transferDesc.value);
-          curUser.desc.push(transferDesc.value);
-        } else {
-          toUser.desc.push('deposit');
-          curUser.desc.push('withdrawal');
-        }
 
         // Update navs active
         removeAllActive();
@@ -680,7 +717,27 @@ const transferFunds = function () {
 const requestLoan = function (acc) {
   const amount = Number(loanAmount.value);
 
-  if (amount <= acc.balance * 0.5) {
+  if (amount && amount <= acc.balance * 0.5 && amount > 0) {
+    curUser.movements.push(amount);
+    curUser.movementsDates.push(new Date());
+    curUser.desc.push('Loan');
+
+    loanAmount.value = '';
+
+    removeClass(modalBack, 'hidden');
+    removeClass(successModal, 'hidden');
+
+    // Update navs active
+    removeAllActive();
+    addClass(homeNavD, 'active');
+    addClass(homeNavM, 'active');
+
+    // return to main page
+    hideFigures();
+    hidePages();
+    removeClass(homePage, 'hidden');
+    removeClass(transactionCont, 'hidden');
+    removeClass(transactionCont, 'side-transitions');
   }
 };
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -718,3 +775,19 @@ transferButton.addEventListener('click', function (e) {
 });
 
 // LOAN EVENT
+loanButton.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  // Loan implementation
+  requestLoan(curUser);
+
+  // update dashbord balances
+  dashboard(curUser);
+  expenses(curUser);
+
+  // update movements container
+  displayMovemements(curUser);
+
+  // low balance check
+  sapaAlert(curUser);
+});

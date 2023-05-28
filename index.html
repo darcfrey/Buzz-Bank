@@ -325,7 +325,7 @@
             <input type="number" id="transfer-amount" class="transfer-input transfer-amount" placeholder="0.00" required>
 
             <label for="desc">Description</label>
-            <input type="text" id="desc" class="transfer-input">
+            <input type="text" id="desc" class="transfer-input trans-desc">
 
             <label for="transfer-pin">Enter pin</label>
             <input type="password" id="transfer-pin" placeholder="PIN" class="transfer-input" required>
@@ -495,22 +495,22 @@
 
             <div class="info-chunk">
               <h4 class="label-heading">Firstname</h4>
-              <input type="text" class="label-info" disabled value="Busy">
+              <input type="text" class="label-info profile-first-name" disabled value="Busy">
             </div>
 
             <div class="info-chunk">
               <h4 class="label-heading">Lastname</h4>
-              <input type="text" class="label-info" disabled value="Bee">
+              <input type="text" class="label-info profile-last-name" disabled value="Bee">
             </div>
 
             <div class="info-chunk">
               <h4 class="label-heading">Account Number</h4>
-              <input type="text" class="label-info" disabled value="0123456789">
+              <input type="text" class="label-info profile-acc-no" disabled value="0123456789">
             </div>
 
             <div class="info-chunk">
               <h4 class="label-heading">D.O.B</h4>
-              <input type="text" class="label-info" disabled value="N/A">
+              <input type="text" class="label-info profile-dob" disabled value="N/A">
             </div>
 
             <div class="options">
@@ -575,16 +575,16 @@
           <h3 class="title-heading">Change Password</h3>
           <form action="#" class="change">
             <label for="old-pword">Old password</label>
-            <input type="password" id="old-pword" class="change-pword-input" placeholder="Old Password">
+            <input type="password" id="old-pword" class="change-pword-input old-pword" placeholder="Old Password">
 
             <label for="new-pword">New password</label>
-            <input type="password" id="new-pword" class="change-pword-input" placeholder="New Password">
+            <input type="password" id="new-pword" class="change-pword-input new-pword" placeholder="New Password">
 
             <label for="v-pword">Confirm password</label>
-            <input type="password" id="v-pword" class="change-pword-input" placeholder="Confirm Password">
+            <input type="password" id="v-pword" class="change-pword-input verify-new-pword" placeholder="Confirm Password">
 
             <div class="buttons">
-              <input type="button" value="Cancel" class="cancel-button changes-button">
+              <input type="button" value="Cancel" class="cancel-pword-button changes-button">
               <input type="button" value="Save" class="savePword-button changes-button">
             </div>
           </form>
