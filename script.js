@@ -1,6 +1,7 @@
 // 'use strict';
 
 // GENERAL ELEMENTS SELECTION
+const mainApp = document.querySelector('.app');
 const loginDate = document.querySelector('.date-now');
 const lastLogin = document.querySelector('.last-date');
 const userFirstName = document.querySelector('.userFN');
@@ -17,6 +18,31 @@ const homePage = document.querySelector('.home-page');
 const cancel = document.querySelectorAll('.cancel');
 
 const transferButton = document.querySelector('.transfer-button');
+
+// LOGIN AND CREATE ACCOUNTS
+const loginContainer = document.querySelector('.login-container');
+const loginForm = document.querySelector('.login-form');
+const createForm = document.querySelector('.create');
+
+const loginID = document.querySelector('.login-id');
+const loginPword = document.querySelector('.login-password');
+const firstNameInput = document.querySelector('.Fname');
+const lastnameInput = document.querySelector('.Lname');
+const createUsername = document.querySelector('.create-username');
+const secretPin = document.querySelector('.secret-pin');
+const createDOB = document.querySelector('.createDOB');
+const createPword = document.querySelector('.newPword');
+const confirmPword = document.querySelector('.validPword');
+
+const loginError = document.querySelector('.login-error');
+const createPasswordError = document.querySelector('.create-error');
+const errorUsername = document.querySelector('.username-create-error');
+
+const loginButton = document.querySelector('.login-button');
+const createButton = document.querySelector('.register-button');
+
+const createPrompt = document.querySelector('.create-account');
+const loginPrompt = document.querySelector('.back-login');
 
 // MAIN SECTIONS SELECTION
 const figures = document.querySelectorAll('.figures');
@@ -58,9 +84,10 @@ const deleteButton = document.querySelector('.option');
 // PASSWORD MANAGEMENT PAGE
 const oldPassword = document.querySelector('.old-pword');
 const newChangedPassword = document.querySelector('.new-pword');
-const verifyChangedPassword = document.querySelector('.verify-new-password');
+const verifyChangedPassword = document.querySelector('.verify-new-pword');
 const savePasswordButton = document.querySelector('.savePword-button');
 const cancelPwordButton = document.querySelector('.cancel-pword-button');
+const changeerror = document.querySelector('.change-error');
 
 const uiDivs = document.querySelectorAll('.colors');
 
@@ -88,6 +115,8 @@ const deleteModal = document.querySelector('.delete-confirmation');
 const cross = document.querySelectorAll('.cross-cancel');
 const allAccounts = document.querySelector('.all-accounts');
 const successModal = document.querySelector('.transaction-success');
+
+const logoutYesButton = document.querySelector('.logout-Mbuttons');
 
 // TRANSFER FORMS
 const transID = document.querySelector('.transfer-id');
@@ -241,9 +270,8 @@ const names = function (acc) {
   );
   profileAccNo.value = acc.accountNo;
 
-  if (!acc.dob) {
-    profileDOB.value = 'N/A';
-  }
+  if (acc.dob) profileDOB.value = acc.dob;
+  else profileDOB.value = 'N/A';
 };
 
 // Formating currency
@@ -296,8 +324,10 @@ const expenses = function (acc) {
 
 // IMPLEMENTATIONS
 hamburger.addEventListener('click', function () {
-  removeClass(modalBack, 'hidden');
-  removeClass(mobileAside, 'hidden');
+  if (loginContainer.classList.contains('hidden')) {
+    removeClass(modalBack, 'hidden');
+    removeClass(mobileAside, 'hidden');
+  }
 });
 
 user.addEventListener('click', function () {
@@ -478,7 +508,7 @@ const account1 = {
     'biro',
   ],
   lastLoginDate: '2021-09-05T17:05:00.000Z',
-  dob: '',
+  dob: '1992-03-01',
 };
 
 const account2 = {
@@ -506,9 +536,10 @@ const account2 = {
     'stamp fee',
     'cashier',
     'biro',
+    'pen',
   ],
   lastLogin: '2020-05-08T14:11:59.604Z',
-  dob: '',
+  dob: '1999-02-01',
 };
 
 const account3 = {
@@ -525,6 +556,7 @@ const account3 = {
     '2020-04-01T10:17:24.185Z',
     '2020-05-08T14:11:59.604Z',
     '2020-07-26T17:01:17.194Z',
+    '2020-02-05T16:33:06.386Z',
     '2020-07-28T23:36:17.929Z',
   ],
   desc: [
@@ -535,9 +567,10 @@ const account3 = {
     'stamp fee',
     'cashier',
     'biro',
+    'pen',
   ],
   lastLogin: '2020-02-05T16:33:06.386Z',
-  dob: '',
+  dob: '2005-03-19',
 };
 
 const account4 = {
@@ -565,9 +598,10 @@ const account4 = {
     'school fees',
     'cashier',
     'biro',
+    'pen',
   ],
   lastLogin: '2019-12-23T07:42:02.383Z',
-  dob: '',
+  dob: '2000-10-25',
 };
 
 const account5 = {
@@ -583,28 +617,19 @@ const account5 = {
     '2020-01-28T09:15:04.904Z',
     '2020-04-01T10:17:24.185Z',
     '2020-05-08T14:11:59.604Z',
-    '2020-07-26T17:01:17.194Z',
-    '2020-07-28T23:36:17.929Z',
   ],
-  desc: [
-    'airtime',
-    'item7',
-    'payee00',
-    'school fees',
-    'stamp fee',
-    'cashier',
-    'biro',
-  ],
+  desc: ['airtime', 'item7', 'payee00', 'school fees', 'stamp fee'],
   lastLogin: '2020-04-10T14:43:26.374Z',
-  dob: '',
+  dob: '1980-12-19',
 };
 
 const accounts = [account1, account2, account3, account4, account5];
 
 let curUser, toUser;
-curUser = account1;
+// curUser = account1;
 
 // ACCOUNT BASED FUNCTIONS
+
 const updateNew = function () {
   // On Login, call date
   const now = updateLoginsDate(new Date());
@@ -647,8 +672,10 @@ const displayMovemements = function (acc) {
 
 const displayAllAccounts = function (accs) {
   allAccounts.innerHTML = '';
-  accs.forEach((acc, i) => {
+  let i = 0;
+  accs.forEach(acc => {
     if (acc !== curUser) {
+      i++;
       const html = `<div class="accDetails">
       <h4 class="accName">Account ${i}</h4>
       <p class="accNo">${acc.accountNo}</p>
@@ -740,11 +767,236 @@ const requestLoan = function (acc) {
     removeClass(transactionCont, 'side-transitions');
   }
 };
+
+// generate account number
+const generateNum = function () {
+  let num = '';
+  for (let i = 0; i < 10; i++) {
+    num += Math.floor(Math.random() * 9) + 1;
+  }
+
+  return num;
+};
+
+const login = function () {
+  // input values check
+  const log = loginID.value.toLowerCase().trim();
+  const logP = loginPword.value.toLowerCase().trim();
+  if (log && logP) {
+    curUser = accounts.find(
+      acc => acc.username === log || acc.accountNo === log
+    );
+
+    addClass(loginError, 'hidden');
+    if (curUser && curUser.password === logP) {
+      loginContainer.style.opacity = 0;
+      mainApp.style.opacity = 0;
+      loginID.value =
+        loginPword.value =
+        firstNameInput.value =
+        lastnameInput.value =
+        createUsername.value =
+        secretPin.value =
+        createDOB.value =
+        createPword.value =
+        confirmPword.value =
+          '';
+      updateNew();
+      displayMovemements(curUser);
+      displayAllAccounts(accounts);
+
+      addClass(loginError, 'hidden');
+
+      setTimeout(function () {
+        addClass(loginContainer, 'hidden');
+        loginContainer.style.opacity = 100;
+        removeClass(mainApp, 'hidden');
+      }, 1000);
+
+      setTimeout(function () {
+        mainApp.style.opacity = 100;
+        removeClass(user, 'hidden');
+      }, 2000);
+    } else {
+      removeClass(loginError, 'hidden');
+    }
+  } else {
+    removeClass(loginError, 'hidden');
+  }
+};
+
+const createAccount = function () {
+  const f = firstNameInput.value;
+  const l = lastnameInput.value;
+  const u = createUsername.value;
+  const p = secretPin.value;
+  const cp = createPword.value;
+  const vp = confirmPword.value;
+  const fullName = [f.toLowerCase().trim(), l.toLowerCase().trim()].join(' ');
+  const username = u.toLowerCase().trim();
+  const accPin = Number(p.trim());
+  const newPword = cp.toLowerCase().trim();
+  const verifyNewPword = vp.toLowerCase().trim();
+
+  // input values check
+  if (f && l && username && accPin && newPword && verifyNewPword) {
+    // check if username exist
+    const check = [];
+    accounts.forEach(acc => {
+      if (acc.username == username) check.push(0);
+      else check.push(1);
+    });
+
+    // check validation
+    if (!check.includes(0)) {
+      addClass(errorUsername, 'hidden');
+
+      // password check
+      if (newPword === verifyNewPword) {
+        addClass(createPasswordError, 'hidden');
+
+        accounts.push({
+          owner: fullName,
+          username: username,
+          password: newPword,
+          movements: [10000],
+          pin: accPin,
+          movementsDates: [],
+          desc: ['welcome bonus'],
+          lastLogin: 'N/A',
+          dob: '',
+        });
+
+        if (createDOB.value)
+          accounts[accounts.length - 1].dob = createDOB.value;
+        else accounts[accounts.length - 1].dob = '';
+
+        accounts[accounts.length - 1].movementsDates.push(new Date());
+
+        //  account number
+        let num = generateNum();
+
+        // check if account number exist
+        const checkNum = [];
+        accounts.forEach(acc => {
+          if (acc.accountNo == num) check.push(0);
+          else check.push(1);
+        });
+
+        // check validation
+        if (!checkNum.includes(0))
+          accounts[accounts.length - 1].accountNo = num;
+        else accounts[accounts.length - 1].accountNo = generateNum();
+
+        curUser = accounts[accounts.length - 1];
+
+        // toggle UI
+        updateNew();
+        displayMovemements(curUser);
+        displayAllAccounts(accounts);
+
+        loginContainer.style.opacity = 0;
+        mainApp.style.opacity = 0;
+
+        setTimeout(function () {
+          addClass(loginContainer, 'hidden');
+          loginContainer.style.opacity = 100;
+          removeClass(mainApp, 'hidden');
+        }, 800);
+
+        setTimeout(function () {
+          mainApp.style.opacity = 100;
+          removeClass(user, 'hidden');
+        }, 1200);
+
+        loginID.value =
+          loginPword.value =
+          firstNameInput.value =
+          lastnameInput.value =
+          createUsername.value =
+          secretPin.value =
+          createDOB.value =
+          createPword.value =
+          confirmPword.value =
+            '';
+      } else removeClass(createPasswordError, 'hidden');
+    } else removeClass(errorUsername, 'hidden');
+  }
+};
+
+const loginReturn = function () {
+  createForm.style.transform = 'translateX(1000px)';
+
+  setTimeout(function () {
+    addClass(createForm, 'hidden');
+    removeClass(loginForm, 'hidden');
+  }, 100);
+
+  setTimeout(function () {
+    loginForm.style.transform = 'translateX(0px)';
+    createForm.style.transform = 'translateX(0px)';
+  }, 200);
+};
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //display
-updateNew();
-displayMovemements(curUser);
+loginButton.addEventListener('click', function (e) {
+  e.preventDefault();
+  login();
+});
+
+createButton.addEventListener('click', function (e) {
+  e.preventDefault();
+  createAccount();
+  loginReturn();
+});
+
+logoutYesButton.addEventListener('click', function () {
+  mainApp.style.opacity = 0;
+  loginContainer.style.opacity = 0;
+
+  // hide modals
+  hideModal();
+  // Update navs active
+  removeAllActive();
+  addClass(homeNavD, 'active');
+  addClass(homeNavM, 'active');
+
+  // return to main page
+  hideFigures();
+  hidePages();
+  removeClass(homePage, 'hidden');
+  removeClass(transactionCont, 'hidden');
+  removeClass(transactionCont, 'side-transitions');
+
+  setTimeout(() => {
+    removeClass(loginContainer, 'hidden');
+    addClass(mainApp, 'hidden');
+  }, 1500);
+
+  setTimeout(function () {
+    loginContainer.style.opacity = 100;
+    addClass(user, 'hidden');
+  }, 2000);
+});
+
+createPrompt.addEventListener('click', function () {
+  loginForm.style.transform = 'translateX(-1000px)';
+  createForm.style.transform = 'translateX(1000px)';
+
+  setTimeout(function () {
+    addClass(loginForm, 'hidden');
+    removeClass(createForm, 'hidden');
+  }, 100);
+
+  setTimeout(function () {
+    createForm.style.transform = 'translateX(0px)';
+  }, 200);
+});
+
+loginPrompt.addEventListener('click', loginReturn);
+
 crossEye.addEventListener('click', function () {
   toggleClass(crossEye, 'hidden');
   toggleClass(eye, 'hidden');
@@ -753,8 +1005,6 @@ crossEye.addEventListener('click', function () {
   accBalance.textContent = `${formatCur(curUser.balance, 'en-NG', 'NGN')}`;
   expenses(curUser);
 });
-
-displayAllAccounts(accounts);
 
 // TRANSFER EVENT
 transferButton.addEventListener('click', function (e) {
@@ -790,4 +1040,29 @@ loanButton.addEventListener('click', function (e) {
 
   // low balance check
   sapaAlert(curUser);
+});
+
+savePasswordButton.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  if (
+    oldPassword.value &&
+    newChangedPassword.value &&
+    verifyChangedPassword.value &&
+    newChangedPassword.value === verifyChangedPassword.value &&
+    oldPassword.value === curUser.password.value
+  ) {
+    curUser.password = verifyChangedPassword.value;
+    addClass(changeerror, 'hidden');
+    oldPassword.value =
+      newChangedPassword.value =
+      verifyChangedPassword.value =
+        '';
+  } else removeClass(changeerror, 'hidden');
+});
+
+cancelPwordButton.addEventListener('click', function (e) {
+  e.preventDefault();
+  oldPassword = newChangedPassword = verifyChangedPassword = '';
+  removeClass(changeerror, 'hidden');
 });

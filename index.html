@@ -87,7 +87,7 @@
             viewBox="0 0 24 24"
             stroke-width="1.5"
             stroke="currentColor"
-            class="user-icon"
+            class="user-icon hidden"
             >
             <path
             stroke-linecap="round"
@@ -105,7 +105,7 @@
     </header>
 
     <!-- ACCOUNT AND LOGIN FORM -->
-    <section class="login-container hidden">
+    <section class="login-container">
       <div class="login">
         <form class="login-form">
           <h2>Login to continue</h2>
@@ -114,7 +114,7 @@
             type="text"
             placeholder="Acc. No / username"
             id="login-username"
-            class="login-input"
+            class="login-input login-id"
             required
             autocomplete="username"
           />
@@ -123,15 +123,15 @@
             type="password"
             placeholder="Password"
             id="login-password"
-            class="login-input"
+            class="login-input login-password"
             required
             autocomplete="new-password"
           />
-          <p class="error-message hidden">Invalid username or password</p>
+          <p class="error-message login-error hidden">Invalid username or password</p>
 
           <input type="submit" value="Login" class="login-button" />
           <p class="create-text">
-            Don't have an account? <span class="new">Create Account</span>
+            Don't have an account? <span class="new create-account">Create Account</span>
           </p>
         </form>
 
@@ -165,7 +165,7 @@
             placeholder="Username"
             id="create-username"
             required
-            class="newAcc-input"
+            class="newAcc-input create-username"
             autocomplete="username"
           />
 
@@ -178,12 +178,12 @@
             placeholder="Pin"
             id="secret-pin"
             required
-            class="newAcc-input"
+            class="newAcc-input secret-pin"
             autocomplete="username"
           />
 
           <label for="date">Date of Birth (optional)</label>
-          <input type="date" class="date newAcc-input" id="date" required />
+          <input type="date" class="date newAcc-input createDOB" id="date"/>
 
           <label for="newPword">Password<span class="important">*</span></label>
           <input
@@ -210,18 +210,18 @@
           <p class="info">
             Please fill out fields with <span class="important">*</span>
           </p>
-          <p class="pword-error hidden">Password does not match</p>
-          <p class="error-message hidden">Username already exists</p>
+          <p class="pword-error create-error hidden">Password does not match</p>
+          <p class="error-message username-create-error hidden">Username already exists</p>
 
           <input type="submit" value="Register" class="register-button" />
           <p class="sign-in">
-            Already have an account? <span class="new">Login</span>
+            Already have an account? <span class="new back-login">Login</span>
           </p>
         </form>
       </div>
     </section>
     <!-- THE APP UI AND INTERFACE -->
-    <main class="app">
+    <main class="app hidden">
       <section class="home-page pages">
         <section class="dates">
           <div class="curLogin-date">
@@ -582,6 +582,8 @@
 
             <label for="v-pword">Confirm password</label>
             <input type="password" id="v-pword" class="change-pword-input verify-new-pword" placeholder="Confirm Password">
+
+            <p class="pword-error change-error hidden">Password does not match</p>
 
             <div class="buttons">
               <input type="button" value="Cancel" class="cancel-pword-button changes-button">
