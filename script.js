@@ -117,6 +117,7 @@ const allAccounts = document.querySelector('.all-accounts');
 const successModal = document.querySelector('.transaction-success');
 
 const logoutYesButton = document.querySelector('.logout-Mbuttons');
+const deleteYesButton = document.querySelector('.delete');
 
 // TRANSFER FORMS
 const transID = document.querySelector('.transfer-id');
@@ -238,7 +239,7 @@ const updateLastLogin = function (acc) {
     const date = new Date(acc.lastLoginDate);
     const formattedDate = updateLoginsDate(date);
     lastLogin.textContent = `${formattedDate}`;
-    acc.lastLogin = new Date();
+    acc.lastLoginDate = new Date();
   } else {
     lastLogin.textContent = 'N/A';
   }
@@ -337,6 +338,11 @@ user.addEventListener('click', function () {
 
   addClass(settingItems, 'hidden');
   addClass(settingItems, 'side-transitions-left');
+
+  settingGroups.forEach(el => {
+    addClass(el, 'hidden');
+    addClass(el, 'side-transitions');
+  });
 
   removeClass(accDetails, 'hidden');
   removeClass(accDetails, 'side-transitions');
@@ -538,7 +544,7 @@ const account2 = {
     'biro',
     'pen',
   ],
-  lastLogin: '2020-05-08T14:11:59.604Z',
+  lastLoginDate: '2020-05-08T14:11:59.604Z',
   dob: '1999-02-01',
 };
 
@@ -569,7 +575,7 @@ const account3 = {
     'biro',
     'pen',
   ],
-  lastLogin: '2020-02-05T16:33:06.386Z',
+  lastLoginDate: '2020-02-05T16:33:06.386Z',
   dob: '2005-03-19',
 };
 
@@ -600,7 +606,7 @@ const account4 = {
     'biro',
     'pen',
   ],
-  lastLogin: '2019-12-23T07:42:02.383Z',
+  lastLoginDate: '2019-12-23T07:42:02.383Z',
   dob: '2000-10-25',
 };
 
@@ -619,7 +625,7 @@ const account5 = {
     '2020-05-08T14:11:59.604Z',
   ],
   desc: ['airtime', 'item7', 'payee00', 'school fees', 'stamp fee'],
-  lastLogin: '2020-04-10T14:43:26.374Z',
+  lastLoginDate: '2020-04-10T14:43:26.374Z',
   dob: '1980-12-19',
 };
 
@@ -646,13 +652,28 @@ const updateNew = function () {
   expenses(curUser);
 };
 
+// MOVEMENT DATE
+const formatMovementDate = function (date) {
+  const calcDaysPassed = (date1, date2) =>
+    Math.round(Math.abs(date2 - date1) / (1000 * 60 * 60 * 24));
+
+  const daysPassed = calcDaysPassed(new Date(), date);
+
+  if (daysPassed === 0) return 'Today';
+  if (daysPassed === 1) return 'Yesterday';
+  if (daysPassed <= 7) return `${daysPassed} days ago`;
+
+  return updateLoginsDate(date);
+};
+
 // update transactions
 const displayMovemements = function (acc) {
   containerMovements.innerHTML = '';
   acc.movements.forEach((mov, i) => {
     const movDate = acc.movementsDates[i];
     const desc = acc.desc[i];
-    const formDate = updateLoginsDate(mov);
+    const date = new Date(movDate);
+    const formDate = formatMovementDate(date);
 
     const html = `
     <div class="transaction ${mov > 0 ? 'credit' : 'debit'}">
@@ -660,7 +681,7 @@ const displayMovemements = function (acc) {
 
   <div class="chunk">
     <p class="desc">${desc.replace(desc[0], desc[0].toUpperCase())}</p>
-    <p class="trans-date">${movDate}</p>
+    <p class="trans-date">${formDate}</p>
   </div>
 
   <p class="amount">${formatCur(Math.abs(mov), 'en-NG', 'NGN')}</p>
@@ -897,7 +918,7 @@ const createAccount = function () {
           pin: accPin,
           movementsDates: [],
           desc: ['welcome bonus'],
-          lastLogin: 'N/A',
+          lastLoginDate: '',
           dob: '',
         });
 
@@ -928,6 +949,7 @@ const createAccount = function () {
         updateNew();
         displayMovemements(curUser);
         displayAllAccounts(accounts);
+        curUser.lastLoginDate = new Date();
 
         loginContainer.style.opacity = 0;
         mainApp.style.opacity = 0;
@@ -976,7 +998,7 @@ createButton.addEventListener('click', function (e) {
 });
 
 // LOGOUT
-logoutYesButton.addEventListener('click', function () {
+const logoutYes = function () {
   mainApp.style.opacity = 0;
   loginContainer.style.opacity = 0;
 
@@ -1000,12 +1022,16 @@ logoutYesButton.addEventListener('click', function () {
 
   addClass(noTransAccError, 'hidden');
   addClass(noTransPinError, 'hidden');
+  addClass(user, 'hidden');
 
   transAmount.value =
     transID.value =
     transferPin.value =
     transferDesc.value =
     loanAmount.value =
+    oldPassword.value =
+    newChangedPassword.value =
+    verifyChangedPassword.value =
       '';
 
   setTimeout(() => {
@@ -1015,8 +1041,21 @@ logoutYesButton.addEventListener('click', function () {
 
   setTimeout(function () {
     loginContainer.style.opacity = 100;
-    addClass(user, 'hidden');
   }, 2000);
+};
+
+logoutYesButton.addEventListener('click', logoutYes);
+
+// DELETE ACCOUNT
+deleteYesButton.addEventListener('click', function () {
+  // find account index
+  const index = accounts.findIndex(acc => acc.username === curUser.username);
+
+  // delete
+  accounts.splice(index, 1);
+
+  // logout
+  logoutYes();
 });
 
 // CREATE FORM
@@ -1102,16 +1141,28 @@ savePasswordButton.addEventListener('click', function (e) {
   if (
     oldPassword.value &&
     newChangedPassword.value &&
-    verifyChangedPassword.value &&
-    newChangedPassword.value === verifyChangedPassword.value &&
-    oldPassword.value === curUser.password.value
+    verifyChangedPassword.value
   ) {
-    curUser.password = verifyChangedPassword.value;
     addClass(changeerror, 'hidden');
-    oldPassword.value =
-      newChangedPassword.value =
-      verifyChangedPassword.value =
-        '';
+
+    if (
+      newChangedPassword.value.toLowerCase() ===
+        verifyChangedPassword.value.toLowerCase() &&
+      oldPassword.value.toLowerCase() === curUser.password
+    ) {
+      console.log(
+        oldPassword.value,
+        newChangedPassword.value,
+        verifyChangedPassword.value,
+        curUser.password
+      );
+      addClass(changeerror, 'hidden');
+      curUser.password = verifyChangedPassword.value;
+      oldPassword.value =
+        newChangedPassword.value =
+        verifyChangedPassword.value =
+          '';
+    } else removeClass(changeerror, 'hidden');
   } else removeClass(changeerror, 'hidden');
 });
 
