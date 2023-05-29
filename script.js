@@ -778,6 +778,7 @@ const generateNum = function () {
   return num;
 };
 
+// LOGGING IN FUNC
 const login = function () {
   // input values check
   const log = loginID.value.toLowerCase().trim();
@@ -806,6 +807,8 @@ const login = function () {
       displayAllAccounts(accounts);
 
       addClass(loginError, 'hidden');
+      addClass(crossEye, 'hidden');
+      removeClass(eye, 'hidden');
 
       setTimeout(function () {
         addClass(loginContainer, 'hidden');
@@ -816,6 +819,7 @@ const login = function () {
       setTimeout(function () {
         mainApp.style.opacity = 100;
         removeClass(user, 'hidden');
+        sapaAlert(curUser);
       }, 2000);
     } else {
       removeClass(loginError, 'hidden');
@@ -825,6 +829,36 @@ const login = function () {
   }
 };
 
+// RETURN TO LOGIN FORM
+const loginReturn = function () {
+  createForm.style.transform = 'translateX(1000px)';
+
+  addClass(loginError, 'hidden');
+  addClass(errorUsername, 'hidden');
+  addClass(createPasswordError, 'hidden');
+  loginID.value =
+    loginPword.value =
+    firstNameInput.value =
+    lastnameInput.value =
+    createUsername.value =
+    secretPin.value =
+    createDOB.value =
+    createPword.value =
+    confirmPword.value =
+      '';
+
+  setTimeout(function () {
+    addClass(createForm, 'hidden');
+    removeClass(loginForm, 'hidden');
+  }, 100);
+
+  setTimeout(function () {
+    loginForm.style.transform = 'translateX(0px)';
+    createForm.style.transform = 'translateX(0px)';
+  }, 200);
+};
+
+// CREATING ACCOUNT FUNC
 const createAccount = function () {
   const f = firstNameInput.value;
   const l = lastnameInput.value;
@@ -919,39 +953,29 @@ const createAccount = function () {
           createPword.value =
           confirmPword.value =
             '';
+
+        loginReturn();
       } else removeClass(createPasswordError, 'hidden');
     } else removeClass(errorUsername, 'hidden');
   }
 };
 
-const loginReturn = function () {
-  createForm.style.transform = 'translateX(1000px)';
-
-  setTimeout(function () {
-    addClass(createForm, 'hidden');
-    removeClass(loginForm, 'hidden');
-  }, 100);
-
-  setTimeout(function () {
-    loginForm.style.transform = 'translateX(0px)';
-    createForm.style.transform = 'translateX(0px)';
-  }, 200);
-};
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //display
+// LOGIN
 loginButton.addEventListener('click', function (e) {
   e.preventDefault();
   login();
 });
 
+// CREATE ACCOUNT
 createButton.addEventListener('click', function (e) {
   e.preventDefault();
   createAccount();
-  loginReturn();
 });
 
+// LOGOUT
 logoutYesButton.addEventListener('click', function () {
   mainApp.style.opacity = 0;
   loginContainer.style.opacity = 0;
@@ -963,12 +987,26 @@ logoutYesButton.addEventListener('click', function () {
   addClass(homeNavD, 'active');
   addClass(homeNavM, 'active');
 
+  // hide sapa alert
+  addClass(sapa, 'hidden');
+
   // return to main page
   hideFigures();
   hidePages();
   removeClass(homePage, 'hidden');
   removeClass(transactionCont, 'hidden');
   removeClass(transactionCont, 'side-transitions');
+  curUser = '';
+
+  addClass(noTransAccError, 'hidden');
+  addClass(noTransPinError, 'hidden');
+
+  transAmount.value =
+    transID.value =
+    transferPin.value =
+    transferDesc.value =
+    loanAmount.value =
+      '';
 
   setTimeout(() => {
     removeClass(loginContainer, 'hidden');
@@ -981,9 +1019,24 @@ logoutYesButton.addEventListener('click', function () {
   }, 2000);
 });
 
+// CREATE FORM
 createPrompt.addEventListener('click', function () {
   loginForm.style.transform = 'translateX(-1000px)';
   createForm.style.transform = 'translateX(1000px)';
+
+  addClass(loginError, 'hidden');
+  addClass(errorUsername, 'hidden');
+  addClass(createPasswordError, 'hidden');
+  loginID.value =
+    loginPword.value =
+    firstNameInput.value =
+    lastnameInput.value =
+    createUsername.value =
+    secretPin.value =
+    createDOB.value =
+    createPword.value =
+    confirmPword.value =
+      '';
 
   setTimeout(function () {
     addClass(loginForm, 'hidden');
@@ -995,6 +1048,7 @@ createPrompt.addEventListener('click', function () {
   }, 200);
 });
 
+// LOGIN PROMPT
 loginPrompt.addEventListener('click', loginReturn);
 
 crossEye.addEventListener('click', function () {
