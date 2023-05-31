@@ -12,6 +12,7 @@ const sapa = document.querySelector('.sapa');
 const hamburger = document.querySelector('.menu-icon');
 const marquee = document.querySelector('.sapa');
 const user = document.querySelector('.user-icon');
+const users = document.querySelector('.users');
 
 const pages = document.querySelectorAll('.pages');
 const homePage = document.querySelector('.home-page');
@@ -109,6 +110,7 @@ const homeNavM = document.querySelector('.homeNavM');
 // MODALS
 const modalBack = document.querySelector('.modal-background');
 const allModal = document.querySelectorAll('.modal');
+const accInfo = document.querySelector('.acc-co-pword');
 const soonModal = document.querySelector('.coming-soon');
 const logoutModal = document.querySelector('.logout-confirmation');
 const deleteModal = document.querySelector('.delete-confirmation');
@@ -116,6 +118,8 @@ const cross = document.querySelectorAll('.cross-cancel');
 const allAccounts = document.querySelector('.all-accounts');
 const successModal = document.querySelector('.transaction-success');
 
+// MODAL CONTENTS
+const accInfoDetails = document.querySelector('.acc-details');
 const logoutYesButton = document.querySelector('.logout-Mbuttons');
 const deleteYesButton = document.querySelector('.delete');
 
@@ -206,7 +210,7 @@ const navigations = function (e, classCheck) {
 const hideModal = function () {
   allModal.forEach(el => {
     addClass(el, 'hidden');
-    addClass(el, 'modal-transition');
+    // addClass(el, 'modal-transition');
   });
 
   addClass(modalBack, 'hidden');
@@ -632,10 +636,31 @@ const account5 = {
 const accounts = [account1, account2, account3, account4, account5];
 
 let curUser, toUser;
-// curUser = account1;
 
+//////////////////////////////////////////////////////////////////////////////////////////
 // ACCOUNT BASED FUNCTIONS
 
+// Update account logins modal
+const allAccInfo = function () {
+  accInfoDetails.innerHTML = '';
+  let i = 1;
+  accounts.forEach(acc => {
+    const accInfoUser = acc.username;
+    const accInfoPword = acc.password;
+
+    const html = `<div class="logins">
+    <h4>Account ${i}</h4>
+    <p class="username-details">Username: ${accInfoUser}</p>
+    <p class="password-details">Password: ${accInfoPword}</p>
+  </div>`;
+    accInfoDetails.insertAdjacentHTML('beforeend', html);
+    i++;
+  });
+};
+
+allAccInfo();
+
+// update users info
 const updateNew = function () {
   // On Login, call date
   const now = updateLoginsDate(new Date());
@@ -829,6 +854,7 @@ const login = function () {
 
       addClass(loginError, 'hidden');
       addClass(crossEye, 'hidden');
+      addClass(users, 'hidden');
       removeClass(eye, 'hidden');
 
       setTimeout(function () {
@@ -949,6 +975,11 @@ const createAccount = function () {
         updateNew();
         displayMovemements(curUser);
         displayAllAccounts(accounts);
+
+        addClass(loginError, 'hidden');
+        addClass(crossEye, 'hidden');
+        addClass(users, 'hidden');
+        removeClass(eye, 'hidden');
         curUser.lastLoginDate = new Date();
 
         loginContainer.style.opacity = 0;
@@ -1004,6 +1035,7 @@ const logoutYes = function () {
 
   // hide modals
   hideModal();
+  removeClass(users, 'hidden');
   // Update navs active
   removeAllActive();
   addClass(homeNavD, 'active');
@@ -1135,6 +1167,7 @@ loanButton.addEventListener('click', function (e) {
   sapaAlert(curUser);
 });
 
+// Updating password
 savePasswordButton.addEventListener('click', function (e) {
   e.preventDefault();
 
@@ -1168,6 +1201,15 @@ savePasswordButton.addEventListener('click', function (e) {
 
 cancelPwordButton.addEventListener('click', function (e) {
   e.preventDefault();
-  oldPassword = newChangedPassword = verifyChangedPassword = '';
+  oldPassword.value =
+    newChangedPassword.value =
+    verifyChangedPassword.value =
+      '';
   removeClass(changeerror, 'hidden');
+});
+
+// All accounts logins
+users.addEventListener('click', function () {
+  removeClass(modalBack, 'hidden');
+  removeClass(accInfo, 'hidden');
 });
