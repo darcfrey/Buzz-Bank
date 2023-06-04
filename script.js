@@ -1,6 +1,7 @@
 // 'use strict';
 
 // GENERAL ELEMENTS SELECTION
+const body = document.querySelector('body');
 const mainApp = document.querySelector('.app');
 const loginDate = document.querySelector('.date-now');
 const lastLogin = document.querySelector('.last-date');
@@ -110,6 +111,7 @@ const homeNavM = document.querySelector('.homeNavM');
 // MODALS
 const modalBack = document.querySelector('.modal-background');
 const allModal = document.querySelectorAll('.modal');
+const instructions = document.querySelector('.instructions');
 const accInfo = document.querySelector('.acc-co-pword');
 const soonModal = document.querySelector('.coming-soon');
 const logoutModal = document.querySelector('.logout-confirmation');
@@ -135,7 +137,6 @@ const noTransPinError = document.querySelector('.trans-pin-error');
 const loanAmount = document.querySelector('.loan-input');
 const loanButton = document.querySelector('.loan-button');
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 // FUNCTIONS
 
 // includes class to an element
@@ -218,6 +219,18 @@ const hideModal = function () {
 
   addClass(mobileAside, 'hidden');
 };
+
+// display manual modal
+const showManual = function () {
+  removeClass(modalBack, 'hidden');
+  instructions.style.opacity = 0;
+  removeClass(instructions, 'hidden');
+  setTimeout(() => {
+    instructions.style.opacity = 100;
+  }, 1000);
+};
+
+showManual();
 
 // show coming soon modal
 const showSoonModal = function () {
@@ -411,10 +424,15 @@ settingItems.addEventListener('click', function (e) {
     const id = e.target.closest('.popup');
     const target = document.querySelector(`.${id.dataset.subpage}`);
 
+    target.style.opacity = 0;
+
     removeClass(modalBack, 'hidden');
 
     removeClass(target, 'hidden');
-    removeClass(target, 'modal-transitions');
+    // removeClass(target, 'modal-transitions');
+    setTimeout(() => {
+      target.style.opacity = 100;
+    }, 100);
   }
 });
 
@@ -430,6 +448,7 @@ returnArrow.addEventListener('click', function () {
     hidePages();
 
     addClass(homeNavD, 'active');
+    addClass(homeNavM, 'active');
     removeClass(homePage, 'hidden');
     removeClass(transactionCont, 'hidden');
     removeClass(transactionCont, 'side-transitions');
@@ -745,7 +764,7 @@ const transferFunds = function () {
     addClass(noTransAccError, 'hidden');
 
     if (amount > 0 && amount <= curUser.balance) {
-      if (curUser.pin === pin) {
+      if (transferPin.value && curUser.pin === pin) {
         addClass(noTransPinError, 'hidden');
 
         toUser.movements.push(amount);

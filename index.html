@@ -451,7 +451,7 @@
             <p class="title-desc">Change UI, background colors, layout</p>
           </div>
 
-          <div class="setting-item">
+          <div class="setting-item popup" data-subpage="instructions">
             <h3 class="title-heading">Help</h3>
             <p class="title-desc">Navigating, what this is, hints</p>
           </div>
@@ -718,6 +718,33 @@
       </svg>      
 
       <p class="success-message">Coming soon...</p>
+    </section>
+
+    <!-- INSTRUCTIONS -->
+    <section class="modal instructions hidden">
+      <h3>GUIDELINES TO USE</h3>
+      <div class="guides">
+        <p class="preface">This is a demo banking web app based on frontend technologies. No attempt is made to save progress to any sort of database so progress is lost if browser is refreshed. All activities performed on the platform are only available while in use at the moment.</p>
+
+        <h4 class="manual-heading">FEATURES AND INFO</h4>
+
+        <ul>
+          <li class="guide">Click on the <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="manual-user">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+            </svg> icon to see all available users profile on the platform to login to or simply create an accout. However, account is lost after refreshing or reopening site.
+          </li>
+          <li class="guide">There are locally stored accounts for users to interact with, they can be viewed by clicking the icon pointed to above. The icon is only availabe while logged out of accounts and currently in the login form page.</li>
+          <li class="guide">Transfer to all accounts present on platform including user's created account. The accounts available can be viewed by clicking on the <q>View accounts</q> prompt on the transfer form which can be accessed by navigating to the transfer page using the side navigations.</li>
+          <li class="guide">Loan can be credited to user's account, however the loan policy is 50% of user's current balance.</li>
+          <li class="guide">Can log out of current account and cross login between existing one or simply create new accounts. All activities can be performed on all accounts and can be checked by logging into them.</li>
+          <li class="guide">Accounts can also be deleted from platform. If the account deleted is the user created accounts, it cannot be recovered. However, if the account deleted is the app built account, they can simply be recovered by refreshing the browser. But all progress made to the platform is los.t</li>
+          <li class="guide">Funny <q>sapa alert</q> is added to the platform if balance is lower than specific amount.</li>
+          <li class="guide">To Locate this prompt again, it can be accessed by clicking the help section under the settings page</li>
+          <li class="guide">Settings > Help</li>
+          <li class="guide">Platform will constantly be updated stay tuned.</li>
+          <li class="note">This is not a real banking app!</li>
+        </ul>
+        </div>
     </section>
 
     <!-- ALL ACCOUNTS -->
