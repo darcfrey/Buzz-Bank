@@ -666,11 +666,13 @@ const allAccInfo = function () {
   accounts.forEach(acc => {
     const accInfoUser = acc.username;
     const accInfoPword = acc.password;
+    const accInfoPin = acc.pin;
 
     const html = `<div class="logins">
     <h4>Account ${i}</h4>
     <p class="username-details">Username: ${accInfoUser}</p>
     <p class="password-details">Password: ${accInfoPword}</p>
+    <p class="password-details">Transfer Pin: ${accInfoPin}</p>
   </div>`;
     accInfoDetails.insertAdjacentHTML('beforeend', html);
     i++;
