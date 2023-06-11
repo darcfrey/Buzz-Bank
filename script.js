@@ -139,6 +139,11 @@ const loanButton = document.querySelector('.loan-button');
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // FUNCTIONS
 
+// ACCIDENTAL RELOAD OR EXIT CONFIRMATION
+window.onbeforeunload = function (e) {
+  return "Please click 'Stay on this Page' if you did this unintentionally";
+};
+
 // includes class to an element
 const addClass = function (element, className) {
   element.classList.add(className);
@@ -511,148 +516,160 @@ cancel.forEach(el => {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // MAIN APP ALGORITHM
-const account1 = {
-  owner: 'Julian Moses',
-  username: 'jaylam',
-  accountNo: '1128863537',
-  password: 'jayjay',
-  movements: [300, -4000, 10000, 30, 7000, -800.5, -60],
-  pin: 1515,
-  movementsDates: [
-    '2023-01-28T09:15:04.904Z',
-    '2023-03-28T23:36:17.929Z',
-    '2023-04-01T10:17:24.185Z',
-    '2023-04-26T17:01:17.194Z',
-    '2023-05-08T14:11:59.604Z',
-    '2023-05-18T21:31:17.178Z',
-    '2023-05-28T07:42:02.383Z',
-  ],
-  desc: [
-    'airtime',
-    'item7',
-    'school fees',
-    'stamp fee',
-    'payee00',
-    'cashier',
-    'biro',
-  ],
-  lastLoginDate: '2023-05-23T17:05:00.000Z',
-  dob: '1992-03-01',
+let accounts = [
+  {
+    owner: 'Julian Moses',
+    username: 'jaylam',
+    accountNo: '1128863537',
+    password: 'jayjay',
+    movements: [300, -4000, 10000, 30, 7000, -800.5, -60],
+    pin: 1515,
+    movementsDates: [
+      '2023-01-28T09:15:04.904Z',
+      '2023-03-28T23:36:17.929Z',
+      '2023-04-01T10:17:24.185Z',
+      '2023-04-26T17:01:17.194Z',
+      '2023-05-08T14:11:59.604Z',
+      '2023-05-18T21:31:17.178Z',
+      '2023-05-28T07:42:02.383Z',
+    ],
+    desc: [
+      'airtime',
+      'item7',
+      'school fees',
+      'stamp fee',
+      'payee00',
+      'cashier',
+      'biro',
+    ],
+    lastLoginDate: '2023-05-23T17:05:00.000Z',
+    dob: '1992-03-01',
+  },
+  {
+    owner: 'Olaleye Rainbow',
+    username: 'olaray',
+    accountNo: '5215277734',
+    password: 'marshala',
+    movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
+    pin: 1111,
+    movementsDates: [
+      '2023-01-25T14:18:46.235Z',
+      '2023-02-05T16:33:06.386Z',
+      '2023-04-01T10:17:24.185Z',
+      '2023-04-10T14:43:26.374Z',
+      '2023-04-25T06:04:23.907Z',
+      '2023-04-30T09:48:16.867Z',
+      '2023-05-01T13:15:33.035Z',
+      '2023-05-11T10:51:36.790Z',
+    ],
+    desc: [
+      'fish',
+      'voucher',
+      'swimming',
+      'franc',
+      'milk fee',
+      'cashier',
+      'drink',
+      'pen',
+    ],
+    lastLoginDate: '2023-05-11T14:11:59.604Z',
+    dob: '1999-02-01',
+  },
+  {
+    owner: 'Sheenur Wango',
+    username: 'shedeyplay',
+    accountNo: '0829498278',
+    password: 'shida11',
+    movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
+    pin: 2222,
+    movementsDates: [
+      '2023-02-05T16:33:06.386Z',
+      '2023-03-26T17:01:17.194Z',
+      '2023-03-28T23:36:17.929Z',
+      '2023-04-01T10:17:24.185Z',
+      '2023-05-08T14:11:59.604Z',
+      '2023-05-18T21:31:17.178Z',
+      '2023-05-23T07:42:02.383Z',
+      '2023-05-28T09:15:04.904Z',
+    ],
+    desc: [
+      'juice',
+      'spotify',
+      'crunchyroll',
+      'subs',
+      'stamp fee',
+      'giveaway',
+      'biscuits',
+      'pen',
+    ],
+    lastLoginDate: '2023-05-28T16:33:06.386Z',
+    dob: '2005-03-19',
+  },
+  {
+    owner: 'Mark Smith',
+    username: 'marselle',
+    accountNo: '1446709730',
+    password: 'marty',
+    movements: [200, -200, 340, -300, -20, 50, 400, -460],
+    pin: 3333,
+    movementsDates: [
+      '2023-01-25T14:18:46.235Z',
+      '2023-02-05T16:33:06.386Z',
+      '2023-04-10T14:43:26.374Z',
+      '2023-05-01T13:15:33.035Z',
+      '2023-05-30T09:48:16.867Z',
+      '2023-05-25T06:04:23.907Z',
+      '2023-05-26T10:51:36.790Z',
+      '2023-05-27T10:17:24.185Z',
+    ],
+    desc: [
+      'apples',
+      'bread',
+      'payee00',
+      'stamp fee',
+      'pies',
+      'wages',
+      'ink',
+      'pen',
+    ],
+    lastLoginDate: '2023-05-27T07:42:02.383Z',
+    dob: '2000-10-25',
+  },
+  {
+    owner: 'Kyu Beeg',
+    username: 'kepao',
+    accountNo: '0223346771',
+    password: 'cantthink',
+    movements: [430, 1000, 700, 50, 90],
+    pin: 4444,
+    movementsDates: [
+      '2023-05-18T14:11:59.604Z',
+      '2023-05-23T10:17:24.185Z',
+      '2023-05-26T09:15:04.904Z',
+      '2023-05-27T07:42:02.383Z',
+      '2023-05-28T21:31:17.178Z',
+    ],
+    desc: ['meat', 'clothes', 'car', 'phones', 'tty'],
+    lastLoginDate: '2023-05-28T14:43:26.374Z',
+    dob: '1980-12-19',
+  },
+];
+
+// Saving to localStorage
+const setLocalStorage = function () {
+  localStorage.setItem('accounts', JSON.stringify(accounts));
 };
 
-const account2 = {
-  owner: 'Olaleye Rainbow',
-  username: 'olaray',
-  accountNo: '5215277734',
-  password: 'marshala',
-  movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
-  pin: 1111,
-  movementsDates: [
-    '2023-01-25T14:18:46.235Z',
-    '2023-02-05T16:33:06.386Z',
-    '2023-04-01T10:17:24.185Z',
-    '2023-04-10T14:43:26.374Z',
-    '2023-04-25T06:04:23.907Z',
-    '2023-04-30T09:48:16.867Z',
-    '2023-05-01T13:15:33.035Z',
-    '2023-05-11T10:51:36.790Z',
-  ],
-  desc: [
-    'fish',
-    'voucher',
-    'swimming',
-    'franc',
-    'milk fee',
-    'cashier',
-    'drink',
-    'pen',
-  ],
-  lastLoginDate: '2023-05-11T14:11:59.604Z',
-  dob: '1999-02-01',
+// retrieving from localStorage
+const getLocalStorage = function () {
+  const data = JSON.parse(localStorage.getItem('accounts'));
+  if (!data) return;
+
+  accounts = data;
 };
 
-const account3 = {
-  owner: 'Sheenur Wango',
-  username: 'shedeyplay',
-  accountNo: '0829498278',
-  password: 'shida11',
-  movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
-  pin: 2222,
-  movementsDates: [
-    '2023-02-05T16:33:06.386Z',
-    '2023-03-26T17:01:17.194Z',
-    '2023-03-28T23:36:17.929Z',
-    '2023-04-01T10:17:24.185Z',
-    '2023-05-08T14:11:59.604Z',
-    '2023-05-18T21:31:17.178Z',
-    '2023-05-23T07:42:02.383Z',
-    '2023-05-28T09:15:04.904Z',
-  ],
-  desc: [
-    'juice',
-    'spotify',
-    'crunchyroll',
-    'subs',
-    'stamp fee',
-    'giveaway',
-    'biscuits',
-    'pen',
-  ],
-  lastLoginDate: '2023-05-28T16:33:06.386Z',
-  dob: '2005-03-19',
-};
-
-const account4 = {
-  owner: 'Mark Smith',
-  username: 'marselle',
-  accountNo: '1446709730',
-  password: 'marty',
-  movements: [200, -200, 340, -300, -20, 50, 400, -460],
-  pin: 3333,
-  movementsDates: [
-    '2023-01-25T14:18:46.235Z',
-    '2023-02-05T16:33:06.386Z',
-    '2023-04-10T14:43:26.374Z',
-    '2023-05-01T13:15:33.035Z',
-    '2023-05-30T09:48:16.867Z',
-    '2023-05-25T06:04:23.907Z',
-    '2023-05-26T10:51:36.790Z',
-    '2023-05-27T10:17:24.185Z',
-  ],
-  desc: [
-    'apples',
-    'bread',
-    'payee00',
-    'stamp fee',
-    'pies',
-    'wages',
-    'ink',
-    'pen',
-  ],
-  lastLoginDate: '2023-05-27T07:42:02.383Z',
-  dob: '2000-10-25',
-};
-
-const account5 = {
-  owner: 'Kyu Beeg',
-  username: 'kepao',
-  accountNo: '0223346771',
-  password: 'cantthink',
-  movements: [430, 1000, 700, 50, 90],
-  pin: 4444,
-  movementsDates: [
-    '2023-05-18T14:11:59.604Z',
-    '2023-05-23T10:17:24.185Z',
-    '2023-05-26T09:15:04.904Z',
-    '2023-05-27T07:42:02.383Z',
-    '2023-05-28T21:31:17.178Z',
-  ],
-  desc: ['meat', 'clothes', 'car', 'phones', 'tty'],
-  lastLoginDate: '2023-05-28T14:43:26.374Z',
-  dob: '1980-12-19',
-};
-
-const accounts = [account1, account2, account3, account4, account5];
+// retrieve item from localStorage
+getLocalStorage();
 
 let curUser, toUser;
 
@@ -803,6 +820,9 @@ const transferFunds = function () {
         removeClass(homePage, 'hidden');
         removeClass(transactionCont, 'hidden');
         removeClass(transactionCont, 'side-transitions');
+
+        // Save to localStorage
+        setLocalStorage();
       } else removeClass(noTransPinError, 'hidden');
     }
   } else removeClass(noTransAccError, 'hidden');
@@ -832,6 +852,9 @@ const requestLoan = function (acc) {
     removeClass(homePage, 'hidden');
     removeClass(transactionCont, 'hidden');
     removeClass(transactionCont, 'side-transitions');
+
+    // Save to localStorage
+    setLocalStorage();
   }
 };
 
@@ -847,6 +870,9 @@ const generateNum = function () {
 
 // LOGGING IN FUNC
 const login = function () {
+  // retrieve item from localStorage
+  getLocalStorage();
+
   // input values check
   const log = loginID.value.toLowerCase().trim();
   const logP = loginPword.value.toLowerCase().trim();
@@ -869,6 +895,7 @@ const login = function () {
         createPword.value =
         confirmPword.value =
           '';
+
       updateNew();
       displayMovemements(curUser);
       displayAllAccounts(accounts);
@@ -876,6 +903,9 @@ const login = function () {
       addClass(loginError, 'hidden');
       addClass(crossEye, 'hidden');
       removeClass(eye, 'hidden');
+
+      // Save to localStorage
+      setLocalStorage();
 
       setTimeout(function () {
         addClass(loginContainer, 'hidden');
@@ -1028,6 +1058,12 @@ const createAccount = function () {
             '';
 
         loginReturn();
+
+        // save to localStorage
+        setLocalStorage();
+
+        // Rterieve
+        getLocalStorage();
       } else removeClass(createPasswordError, 'hidden');
     } else removeClass(errorUsername, 'hidden');
   }

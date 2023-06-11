@@ -1,10 +1,10 @@
 # BUZZ BANK WEB APP (WIP)
 
-This a web bank based on frontend technologies (HTML, CSS and JavaScript). It is based on frontend alone, so users will lose progress if browser is refreshed.
+This a web bank based on frontend technologies (HTML, CSS and JavaScript). It is based on frontend alone. Activities performed are only available on particular device!
 
 ## Features
 
-- Create account and Login (However, progress is lost after being refreshed).
+- Create account and Login .
 
 - Locally stored accounts for users to interact with
 
