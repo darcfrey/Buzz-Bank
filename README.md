@@ -4,7 +4,9 @@ This a web bank based on frontend technologies (HTML, CSS and JavaScript). It is
 
 ## Features
 
-- Create account and Login .
+- Create account and Login.
+
+- Inputs validations
 
 - Locally stored accounts for users to interact with
 
