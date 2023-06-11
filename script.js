@@ -273,7 +273,10 @@ const names = function (acc) {
   firstName = firstName[0];
 
   // firstname
-  userFirstName.textContent = `${firstName}`;
+  userFirstName.textContent = `${firstName.replace(
+    firstName[0],
+    firstName[0].toUpperCase()
+  )}`;
 
   // username
   const nameUser = acct =>
