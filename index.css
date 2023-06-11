@@ -299,7 +299,7 @@ h2 {
   border-radius: 10px;
   background-color: #212529;
   color: #fff;
-  padding: 1.5rem;
+  padding: 1.3rem;
 }
 
 .acc-info {
@@ -321,7 +321,7 @@ h2 {
 
 .acc-no {
   font-weight: 400;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
 }
 
 .balance {
@@ -487,7 +487,7 @@ form.transfer-form {
   margin: 3rem auto;
   display: flex;
   flex-wrap: wrap;
-  gap: 3rem;
+  gap: 2.5rem;
 }
 
 .icon-container {
@@ -539,6 +539,7 @@ form.transfer-form {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  font-size: 1.1rem;
 }
 
 .return {
@@ -548,7 +549,7 @@ form.transfer-form {
 
 .title-desc {
   font-weight: 400;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
 /* PERSONAL INFORMATION SECTION */
@@ -742,6 +743,10 @@ form.transfer-form {
   text-align: center;
   margin-bottom: 2.5rem;
   font-size: 1.25rem;
+}
+
+.userFN {
+  font-size: 1rem;
 }
 
 .side-content {
