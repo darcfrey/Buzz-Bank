@@ -22,6 +22,8 @@ This a web bank based on frontend technologies (HTML, CSS and JavaScript). It is
 
 - Settings menu
 
+- Confirmation for accidental reload
+
 ### NOTE
 
 This is not a real bank app, it is just a prototype and a practice project, any changes made will not be reflected in actuality.
