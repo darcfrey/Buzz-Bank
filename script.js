@@ -140,9 +140,9 @@ const loanButton = document.querySelector('.loan-button');
 // FUNCTIONS
 
 // ACCIDENTAL RELOAD OR EXIT CONFIRMATION
-// window.onbeforeunload = function (e) {
-//   return "Please click 'Stay on this Page' if you did this unintentionally";
-// };
+window.onbeforeunload = function (e) {
+  return "Please click 'Stay on this Page' if you did this unintentionally";
+};
 
 // includes class to an element
 const addClass = function (element, className) {
