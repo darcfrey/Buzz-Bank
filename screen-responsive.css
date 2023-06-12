@@ -270,9 +270,9 @@
 }
 
 @media only screen and (max-width: 550px) {
-  /* :root {
-    font-size: 18px;
-  } */
+  :root {
+    font-size: 16px;
+  }
 
   .dark,
   .light {
@@ -296,11 +296,20 @@
 
   .login {
     width: 85%;
+    padding: 2.3rem;
+  }
+
+  h2 {
+    font-size: 1.4rem;
   }
 
   label {
-    font-size: 1rem;
+    font-size: 0.9rem;
     margin-bottom: 0.4rem;
+  }
+
+  .create-text {
+    font-size: 0.95rem;
   }
 
   .login-input,
@@ -431,5 +440,9 @@
 
   .main-info {
     width: 95%;
+  }
+
+  .modal {
+    font-size: 0.85rem;
   }
 }
