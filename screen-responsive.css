@@ -280,18 +280,18 @@
   }
 
   header h1 {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
   }
 
   .bank-icon {
-    width: 2.65rem;
-    height: 2.65rem;
+    width: 2.75rem;
+    height: 2.75rem;
   }
 
   .users,
   .menu-icon {
-    width: 2rem;
-    height: 2rem;
+    width: 2.15rem;
+    height: 2.15rem;
   }
 
   .login {
@@ -300,11 +300,11 @@
   }
 
   h2 {
-    font-size: 1.4rem;
+    font-size: 1.389rem;
   }
 
   label {
-    font-size: 0.9rem;
+    font-size: 1.02rem;
     margin-bottom: 0.4rem;
   }
 
@@ -382,15 +382,15 @@
   }
 
   .desc {
-    font-size: 0.7rem;
+    font-size: 0.758rem;
   }
 
   .trans-date {
-    font-size: 0.6rem;
+    font-size: 0.658rem;
   }
 
   .amount {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
   }
 
   .loan-input {
@@ -427,11 +427,11 @@
   }
 
   .title-heading {
-    font-size: 1rem;
+    font-size: 1.12rem;
   }
 
   .title-desc {
-    font-size: 0.8rem;
+    font-size: 0.92rem;
   }
 
   .settings-group {
@@ -444,5 +444,11 @@
 
   .modal {
     font-size: 0.85rem;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  :root {
+    font-size: 16.3px;
   }
 }
