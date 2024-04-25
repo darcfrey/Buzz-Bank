@@ -34,7 +34,8 @@ Use only in-app navigations as this is a Single Page Application
 
 #### Author
 
-- Twitter - [@RealCecil4](https://www.twitter.com/RealCecil4)
+- Twitter - [@RealCecil4], [darcjs](https://x.com/realcecil4?s=21)
+-(https://x.com/darcjs_?s=21)
 
 - Mail - [dreydare16@gmail.com](mailto:dreydare16@gmail.com)
 
